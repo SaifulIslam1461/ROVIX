@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <script>
         tailwind.config = {
             theme: {
@@ -92,7 +92,7 @@
     <header class="bg-matte-800/95 backdrop-blur border-b border-gold-500/30 sticky top-0 z-40 shadow-2xl">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
-                
+
                 <!-- ROVIX Logo Component -->
                 <div class="flex items-center gap-3 cursor-pointer" onclick="switchCategory('all')">
                     <div class="relative w-12 h-12 rounded-full border-2 border-gold-500 flex items-center justify-center bg-matte-900 shadow-lg shadow-gold-500/10 group">
@@ -108,7 +108,7 @@
                     </div>
                 </div>
 
-                <!-- Navigation Links (Dynamically Populated Categories) -->
+                <!-- Navigation Links -->
                 <nav id="dynamic-nav-categories" class="hidden lg:flex items-center gap-6 font-medium text-stone-300 text-sm">
                     <!-- Loaded via JS -->
                 </nav>
@@ -118,7 +118,7 @@
                     <button onclick="openSearchModal()" class="p-2.5 text-stone-300 hover:text-gold-400 transition rounded-full hover:bg-matte-700" title="খুঁজুন">
                         <i class="fa-solid fa-magnifying-glass text-lg"></i>
                     </button>
-                    
+
                     <button onclick="toggleCartDrawer()" class="relative p-2.5 bg-matte-700 text-gold-400 hover:bg-matte-600 border border-gold-500/30 transition rounded-full flex items-center justify-center shadow-md">
                         <i class="fa-solid fa-bag-shopping text-xl"></i>
                         <span id="cart-badge" class="absolute -top-1 -right-1 gold-gradient-bg text-matte-900 text-xs font-black rounded-full h-5 w-5 flex items-center justify-center border-2 border-matte-800">0</span>
@@ -193,7 +193,7 @@
         </div>
     </div>
 
-    <!-- Checkout Modal -->
+    <!-- Checkout Modal (Order Now & Multiple Payment Methods) -->
     <div id="checkout-modal" class="fixed inset-0 z-50 overflow-y-auto hidden">
         <div class="flex items-center justify-center min-h-screen px-4 py-8 text-center sm:block sm:p-0">
             <div onclick="closeCheckoutModal()" class="fixed inset-0 transition-opacity bg-black/80 backdrop-blur-md"></div>
@@ -202,7 +202,7 @@
                 <div class="bg-matte-900 p-6 border-b border-gold-500/30 flex justify-between items-center">
                     <div>
                         <h3 class="text-xl font-bold font-serif text-gold-400">অর্ডার নিশ্চিতকরণ</h3>
-                        <p class="text-xs text-stone-400 mt-1">পণ্য হাতে পেয়ে পেমেন্ট করুন (ক্যাশ অন ডেলিভারি)</p>
+                        <p class="text-xs text-stone-400 mt-1">পণ্য কিনতে নিচের তথ্যগুলো পূরণ করুন</p>
                     </div>
                     <button onclick="closeCheckoutModal()" class="text-stone-400 hover:text-white">
                         <i class="fa-solid fa-xmark text-xl"></i>
@@ -230,11 +230,22 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-gold-300 uppercase mb-1">পেমেন্ট মেথড</label>
-                            <div class="px-4 py-2.5 bg-matte-900 border border-gold-500/40 rounded-xl text-amber-300 text-xs font-bold flex items-center gap-2">
-                                <i class="fa-solid fa-hand-holding-dollar text-gold-500"></i> ক্যাশ অন ডেলিভারি (COD)
-                            </div>
+                            <label class="block text-xs font-bold text-gold-300 uppercase mb-1">পেমেন্ট মেথড *</label>
+                            <select id="cust-payment-method" onchange="togglePaymentInstructions()" class="w-full px-4 py-2.5 bg-matte-900 border border-gold-500/50 rounded-xl text-amber-300 font-bold focus:border-gold-500 focus:outline-none text-sm">
+                                <option value="cod">ক্যাশ অন ডেলিভারি (COD)</option>
+                                <option value="bkash">বিকাশ (bKash)</option>
+                                <option value="nagad">নগদ (Nagad)</option>
+                                <option value="rocket">রকেট (Rocket)</option>
+                                <option value="bank">ব্যাংক ট্রান্সফার (Bank Transfer)</option>
+                            </select>
                         </div>
+                    </div>
+
+                    <!-- Dynamic Payment Instructions -->
+                    <div id="payment-instructions" class="hidden p-3 bg-matte-900 rounded-xl border border-gold-500/30 text-xs space-y-1">
+                        <p class="text-amber-300 font-bold" id="pay-number-text">বিকাশ সেন্ড মানি নম্বর: 01620839283</p>
+                        <p class="text-stone-400">টাকা পাঠানোর পর ট্রানজেকশন আইডি (TrxID) নিচে লিখুন:</p>
+                        <input type="text" id="cust-trxid" placeholder="যেমন: 8N7A6D5E" class="w-full px-3 py-1.5 bg-matte-800 border border-stone-700 rounded-lg text-white mt-1">
                     </div>
 
                     <div>
@@ -281,7 +292,7 @@
                         <i class="fa-solid fa-lock text-gold-500 text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-bold font-serif text-white">ROVIX সিকিউর এডমিন পোর্টাল</h3>
-                    <p class="text-xs text-stone-400 mt-1">প্রবেশ করতে এডমিন সিকিউরিটি পিন বা পাসওয়ার্ড দিন</p>
+                    <p class="text-xs text-stone-400 mt-1">প্রবেশ করতে সিকিউরিটি পাসওয়ার্ড দিন</p>
                 </div>
 
                 <form onsubmit="handleAdminLogin(event)" class="space-y-4">
@@ -321,7 +332,7 @@
     <footer id="store-footer" class="bg-matte-900 text-stone-300 pt-16 pb-8 border-t border-gold-500/20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-                
+
                 <div class="space-y-4">
                     <div class="flex items-center gap-2">
                         <div class="w-8 h-8 rounded-full border border-gold-500 bg-matte-800 flex items-center justify-center font-serif text-gold-400 font-bold">R</div>
@@ -361,11 +372,14 @@
                 </div>
 
                 <div>
-                    <h4 class="text-white font-bold text-sm uppercase mb-4 border-b border-stone-800 pb-2">যোগাযোগ</h4>
+                    <h4 class="text-white font-bold text-sm uppercase mb-4 border-b border-stone-800 pb-2">যোগাযোগ ও আউটলেট</h4>
                     <ul class="space-y-3 text-xs text-stone-400">
                         <li class="flex items-start gap-2">
                             <i class="fa-solid fa-location-dot text-gold-500 mt-0.5"></i>
-                            <span id="footer-address-display">লেভেল ৪, বসুন্ধরা সিটি শপিং মল, ঢাকা</span>
+                            <div>
+                                <span id="footer-address-display">লেভেল ৪, বসুন্ধরা সিটি শপিং মল, ঢাকা</span>
+                                <a id="footer-map-link" href="https://maps.google.com" target="_blank" class="block text-[10px] text-gold-400 underline mt-0.5">গুগল ম্যাপে দেখুন</a>
+                            </div>
                         </li>
                         <li class="flex items-center gap-2">
                             <i class="fa-brands fa-whatsapp text-green-400"></i>
@@ -381,7 +395,7 @@
 
             <div class="border-t border-stone-800 pt-6 text-center text-xs text-stone-500 flex flex-col sm:flex-row justify-between items-center gap-4">
                 <p>© ২০২৬ ROVIX Football & Leather Goods. সর্বস্বত্ব সংরক্ষিত।</p>
-                
+
                 <!-- Secret Admin Access Gateway -->
                 <button onclick="openAdminLoginModal()" class="text-stone-600 hover:text-gold-500 text-[11px] transition flex items-center gap-1">
                     <i class="fa-solid fa-lock"></i> <span>এডমিন পোর্টাল</span>
@@ -482,6 +496,7 @@
             whatsapp: "8801620839283",
             email: "support@rovixbd.com",
             address: "লেভেল ৪, বসুন্ধরা সিটি শপিং মল, ঢাকা",
+            mapUrl: "https://maps.google.com",
             facebook: "https://facebook.com/rovixbd",
             instagram: "https://instagram.com/rovixbd",
             topNotice: "আন্তর্জাতিক মানের ১০০% জেনুইন লেদার ও ফুটওয়্যার",
@@ -496,8 +511,10 @@
                 customerName: "মো: আরিয়ান খান",
                 phone: "01712000000",
                 address: "ধানমণ্ডি ৩২, ঢাকা",
+                items: [{ name: "রোভিক্স গোল্ড মেডেলিয়ন প্রিমিয়াম স্নিকার্স", quantity: 1, price: 3450 }],
                 totalAmount: 3520,
                 paymentMethod: "ক্যাশ অন ডেলিভারি",
+                trxId: "",
                 status: "প্রসেসিং",
                 date: "২০২৬-১০-০৭"
             }
@@ -505,7 +522,7 @@
 
         // Global Central State
         let state = {
-            view: 'store', // 'store' or 'admin'
+            view: 'store',
             selectedCategory: 'all',
             isAdminLoggedIn: false,
             adminTab: 'dashboard',
@@ -537,22 +554,20 @@
 
         function updateDynamicSiteInfo() {
             const s = state.siteSettings;
-            
-            // Header elements
+
             document.getElementById('site-top-notice').innerHTML = `<i class="fa-solid fa-crown text-gold-500 mr-1.5"></i> ${s.topNotice}`;
             document.getElementById('header-phone-display').innerText = s.phone;
             document.getElementById('header-phone-link').href = `https://wa.me/${s.whatsapp}`;
 
-            // Footer elements
             document.getElementById('footer-fb-link').href = s.facebook;
             document.getElementById('footer-ig-link').href = s.instagram;
             document.getElementById('footer-wa-link').href = `https://wa.me/${s.whatsapp}`;
             document.getElementById('footer-address-display').innerText = s.address;
             document.getElementById('footer-phone-display').innerText = s.phone;
             document.getElementById('footer-email-display').innerText = s.email;
+            if(document.getElementById('footer-map-link')) document.getElementById('footer-map-link').href = s.mapUrl || '#';
         }
 
-        // Category Navigation Populators
         function renderCategoryNavs() {
             const dynamicNav = document.getElementById('dynamic-nav-categories');
             const mobileNav = document.getElementById('mobile-nav-categories');
@@ -599,7 +614,7 @@
             if (state.selectedCategory === 'all') {
                 html += `
                 <!-- Luxury Hero -->
-                <section class="relative bg-gradient-to-b from-matte-900 via-matte-800 to-matte-900 border-b border-gold-500/20 py-16 md:py-24 overflow-hidden">
+                <section class="relative bg-gradient-to-b from-matte-900 via-matte-800 to-matte-900 border-b border-gold-500/20 py-12 md:py-20 overflow-hidden">
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                         <div class="space-y-6 text-center md:text-left">
                             <span class="inline-flex items-center gap-2 bg-gold-500/10 border border-gold-500/30 text-gold-400 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase">
@@ -634,23 +649,38 @@
                         </div>
                     </div>
                 </section>
+
+                <!-- Featured Categories (Mobile 3-Column Square Grid) -->
+                <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 border-b border-stone-800/80">
+                    <h3 class="text-lg font-serif font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group text-gold-500 text-sm"></i> পপুলার ক্যাটাগরি
+                    </h3>
+                    <div class="grid grid-cols-3 sm:grid-cols-6 gap-3">
+                        ${state.categories.map(c => `
+                            <button onclick="switchCategory('${c.id}')" class="bg-matte-800 hover:bg-matte-700 border border-gold-500/20 hover:border-gold-500/50 rounded-xl p-3 flex flex-col items-center justify-center text-center aspect-square transition shadow-md group">
+                                <i class="fa-solid ${c.icon || 'fa-box'} text-gold-400 text-xl group-hover:scale-110 transition duration-300 mb-1.5"></i>
+                                <span class="text-[11px] font-bold text-stone-200 line-clamp-1">${c.name}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                </section>
                 `;
             }
 
-            // Products Grid Title
+            // Products Grid (Mobile 2-Column Grid)
             html += `
-            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div class="flex justify-between items-end mb-8 border-b border-stone-800 pb-4">
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                <div class="flex justify-between items-end mb-6 border-b border-stone-800 pb-4">
                     <div>
                         <span class="text-gold-400 font-bold text-xs uppercase tracking-widest block mb-1">অরিজিনাল লেদার কালেকশন</span>
-                        <h2 class="text-2xl sm:text-3xl font-extrabold font-serif text-white">
+                        <h2 class="text-xl sm:text-3xl font-extrabold font-serif text-white">
                             ${state.selectedCategory === 'all' ? 'সকল প্রিমিয়াম পণ্য' : state.categories.find(c => c.id === state.selectedCategory)?.name || 'পণ্যসমূহ'}
                         </h2>
                     </div>
                     <span class="text-stone-400 text-xs">${filtered.length} টি পণ্য পাওয়া গেছে</span>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
             `;
 
             if (filtered.length === 0) {
@@ -663,54 +693,54 @@
             } else {
                 filtered.forEach(p => {
                     const sizesArr = p.sizes ? p.sizes.split(',').map(s => s.trim()) : [];
-                    const waMessage = encodeURIComponent(`হ্যালো ROVIX, আমি এই পণ্যটি অর্ডার করতে চাই:\n\nপণ্য: ${p.name}\nমূল্য: ৳${p.price}`);
-                    
+
                     html += `
-                    <div class="bg-matte-800 rounded-2xl border border-gold-500/20 overflow-hidden shadow-xl hover:border-gold-500/50 transition duration-300 flex flex-col justify-between group">
+                    <div class="bg-matte-800 rounded-xl sm:rounded-2xl border border-gold-500/20 overflow-hidden shadow-xl hover:border-gold-500/50 transition duration-300 flex flex-col justify-between group">
                         <div>
                             <div class="relative aspect-square overflow-hidden bg-matte-900">
                                 <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                                 ${p.oldPrice ? `
-                                    <span class="absolute top-3 left-3 bg-red-600 text-white text-[10px] font-extrabold px-2 py-0.5 rounded uppercase">
-                                        অফার প্রাইস
+                                    <span class="absolute top-2 left-2 bg-red-600 text-white text-[9px] sm:text-[10px] font-extrabold px-1.5 sm:px-2 py-0.5 rounded uppercase">
+                                        অফার
                                     </span>
                                 ` : ''}
-                                <span class="absolute top-3 right-3 bg-matte-900/90 text-gold-400 text-xs font-bold px-2.5 py-1 rounded-full border border-gold-500/30">
-                                    <i class="fa-solid fa-star text-gold-400 text-[10px]"></i> ${p.rating}
+                                <span class="absolute top-2 right-2 bg-matte-900/90 text-gold-400 text-[10px] sm:text-xs font-bold px-2 py-0.5 sm:py-1 rounded-full border border-gold-500/30">
+                                    <i class="fa-solid fa-star text-gold-400 text-[9px]"></i> ${p.rating}
                                 </span>
                             </div>
 
-                            <div class="p-5 space-y-2">
-                                <span class="text-[10px] font-bold text-gold-400 uppercase tracking-widest block">
+                            <div class="p-3 sm:p-5 space-y-1.5">
+                                <span class="text-[9px] sm:text-[10px] font-bold text-gold-400 uppercase tracking-widest block">
                                     ${state.categories.find(c => c.id === p.category)?.name || p.category}
                                 </span>
-                                <h3 class="font-bold text-white text-base leading-snug line-clamp-2">${p.name}</h3>
-                                <p class="text-xs text-stone-400 line-clamp-2">${p.description}</p>
+                                <h3 class="font-bold text-white text-xs sm:text-base leading-snug line-clamp-2">${p.name}</h3>
+                                <p class="text-[11px] sm:text-xs text-stone-400 line-clamp-2 hidden sm:block">${p.description}</p>
                                 
                                 ${sizesArr.length > 0 ? `
-                                    <div class="pt-2">
-                                        <span class="text-[10px] text-stone-400 block font-bold mb-1">সাইজসমূহ:</span>
+                                    <div class="pt-1">
                                         <div class="flex flex-wrap gap-1">
-                                            ${sizesArr.map(sz => `<span class="text-[10px] bg-matte-900 border border-stone-700 px-2 py-0.5 rounded text-stone-300 font-mono">${sz}</span>`).join('')}
+                                            ${sizesArr.slice(0, 3).map(sz => `<span class="text-[9px] sm:text-[10px] bg-matte-900 border border-stone-700 px-1.5 py-0.5 rounded text-stone-300 font-mono">${sz}</span>`).join('')}
+                                            ${sizesArr.length > 3 ? `<span class="text-[9px] text-stone-500 font-bold">+${sizesArr.length - 3}</span>` : ''}
                                         </div>
                                     </div>
                                 ` : ''}
                             </div>
                         </div>
 
-                        <div class="p-5 pt-0 space-y-3">
-                            <div class="flex items-baseline gap-2">
-                                <span class="text-xl font-black text-white">৳${p.price.toLocaleString('bn-BD')}</span>
-                                ${p.oldPrice ? `<span class="text-xs text-stone-500 line-through">৳${p.oldPrice.toLocaleString('bn-BD')}</span>` : ''}
+                        <div class="p-3 sm:p-5 pt-0 space-y-2">
+                            <div class="flex items-baseline gap-1.5">
+                                <span class="text-base sm:text-xl font-black text-white">৳${p.price.toLocaleString('bn-BD')}</span>
+                                ${p.oldPrice ? `<span class="text-[10px] sm:text-xs text-stone-500 line-through">৳${p.oldPrice.toLocaleString('bn-BD')}</span>` : ''}
                             </div>
 
-                            <div class="grid grid-cols-2 gap-2">
-                                <button onclick="addToCart(${p.id})" class="gold-gradient-bg text-matte-900 py-2.5 rounded-xl font-bold text-xs transition flex items-center justify-center gap-1.5 shadow-md">
-                                    <i class="fa-solid fa-cart-plus"></i> কার্টে যোগ করুন
+                            <!-- Dual Buttons: Quick Order Now & Add to Cart -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                                <button onclick="quickOrder(${p.id})" class="gold-gradient-bg text-matte-900 py-2 rounded-lg font-black text-xs transition flex items-center justify-center gap-1 shadow-md uppercase tracking-wider">
+                                    <i class="fa-solid fa-bolt text-xs"></i> Order Now
                                 </button>
-                                <a href="https://wa.me/${state.siteSettings.whatsapp}?text=${waMessage}" target="_blank" class="bg-green-600 hover:bg-green-700 text-white py-2.5 rounded-xl font-bold text-xs transition flex items-center justify-center gap-1 text-center">
-                                    <i class="fa-brands fa-whatsapp text-sm"></i> হোয়াটসঅ্যাপ
-                                </a>
+                                <button onclick="addToCart(${p.id})" class="bg-matte-700 hover:bg-matte-600 text-gold-400 border border-gold-500/30 py-2 rounded-lg font-bold text-xs transition flex items-center justify-center gap-1">
+                                    <i class="fa-solid fa-cart-plus"></i> কার্ট
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -745,6 +775,18 @@
             showToast(`"${prod.name}" কার্টে যুক্ত হয়েছে!`);
         }
 
+        // Direct Order Now functionality
+        function quickOrder(productId) {
+            const prod = state.products.find(p => p.id === productId);
+            if (!prod) return;
+
+            state.cart = [{ ...prod, quantity: 1 }];
+            saveState();
+            updateCartBadge();
+            renderCartItems();
+            openCheckoutModal();
+        }
+
         function updateCartBadge() {
             const count = state.cart.reduce((sum, item) => sum + item.quantity, 0);
             document.getElementById('cart-badge').innerText = count;
@@ -774,7 +816,7 @@
 
         function renderCartItems() {
             const container = document.getElementById('cart-items-container');
-            
+
             if (state.cart.length === 0) {
                 container.innerHTML = `
                     <div class="text-center py-12 text-stone-500">
@@ -789,7 +831,7 @@
 
             let html = '';
             let subtotal = 0;
-            let whatsappDetails = "হ্যালো ROVIX, আমি নিচের পণ্যগুলো ব্যাকআপ অর্ডার করতে চাই:\n\n";
+            let whatsappDetails = "হ্যালো ROVIX, আমি নিচে দেওয়া প্রোডাক্টগুলো অর্ডার করতে চাই:\n\n";
 
             state.cart.forEach(item => {
                 const total = item.price * item.quantity;
@@ -817,7 +859,7 @@
 
             container.innerHTML = html;
             const grandTotal = subtotal + state.shippingFee;
-            whatsappDetails += `\nসর্বমোট (ডেলিভারি সহ): ৳${grandTotal}`;
+            whatsappDetails += `\nসর্বমোট (ডেলিভারি চার্জ সহ): ৳${grandTotal}`;
 
             document.getElementById('cart-subtotal').innerText = `৳${subtotal.toLocaleString('bn-BD')}`;
             document.getElementById('cart-shipping').innerText = `৳${state.shippingFee.toLocaleString('bn-BD')}`;
@@ -831,13 +873,32 @@
                 showToast("অর্ডার করতে কার্টে আগে পণ্য যোগ করুন!", 'error');
                 return;
             }
-            toggleCartDrawer();
+            const drawer = document.getElementById('cart-drawer');
+            if(!drawer.classList.contains('hidden')) toggleCartDrawer();
+            
             updateShippingFee();
+            togglePaymentInstructions();
             document.getElementById('checkout-modal').classList.remove('hidden');
         }
 
         function closeCheckoutModal() {
             document.getElementById('checkout-modal').classList.add('hidden');
+        }
+
+        function togglePaymentInstructions() {
+            const method = document.getElementById('cust-payment-method').value;
+            const inst = document.getElementById('payment-instructions');
+            const numText = document.getElementById('pay-number-text');
+
+            if (method === 'cod') {
+                inst.classList.add('hidden');
+            } else {
+                inst.classList.remove('hidden');
+                if (method === 'bkash') numText.innerText = `বিকাশ সেন্ড মানি (পার্সোনাল): ${state.siteSettings.phone}`;
+                else if (method === 'nagad') numText.innerText = `নগদ সেন্ড মানি (পার্সোনাল): ${state.siteSettings.phone}`;
+                else if (method === 'rocket') numText.innerText = `রকেট সেন্ড মানি (পার্সোনাল): ${state.siteSettings.phone}`;
+                else if (method === 'bank') numText.innerText = `ব্যাংক অ্যাকাউন্ট বিস্তারিত জানতে ডাইরেক্ট কল করুন: ${state.siteSettings.phone}`;
+            }
         }
 
         function updateShippingFee() {
@@ -852,32 +913,46 @@
             document.getElementById('chk-grandtotal').innerText = `৳${grandTotal.toLocaleString('bn-BD')}`;
         }
 
+        // Handle Order Placement & Realtime DB Syncing Fix
         function handlePlaceOrder(e) {
             e.preventDefault();
 
             const name = document.getElementById('cust-name').value;
             const phone = document.getElementById('cust-phone').value;
             const address = document.getElementById('cust-address').value;
+            const payMethod = document.getElementById('cust-payment-method').value;
+            const trxId = document.getElementById('cust-trxid') ? document.getElementById('cust-trxid').value : '';
             const subtotal = state.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            const orderedItems = state.cart.map(item => ({
+                id: item.id,
+                name: item.name,
+                price: item.price,
+                quantity: item.quantity
+            }));
 
             const newOrder = {
                 id: `ROVIX-${Math.floor(1000 + Math.random() * 9000)}`,
                 customerName: name,
                 phone: phone,
                 address: address,
+                items: orderedItems,
                 totalAmount: subtotal + state.shippingFee,
-                paymentMethod: "ক্যাশ অন ডেলিভারি",
-                status: "প্রসেসিং",
+                paymentMethod: payMethod.toUpperCase(),
+                trxId: trxId,
+                status: "পেন্ডিং",
                 date: new Date().toISOString().split('T')[0]
             };
 
+            // Realtime Syncing to State & LocalStorage
             state.orders.unshift(newOrder);
             state.cart = [];
             saveState();
+
             updateCartBadge();
             closeCheckoutModal();
 
-            showToast(`ধন্যবাদ! আপনার অর্ডার আইডি: ${newOrder.id}`, 'success');
+            showToast(`ধন্যবাদ! আপনার অর্ডার সফলভাবে গ্রহণ করা হয়েছে। ID: ${newOrder.id}`, 'success');
         }
 
         function openAdminLoginModal() {
@@ -906,6 +981,16 @@
                 showToast("এডমিন ড্যাশবোর্ডে প্রবেশের অনুমতি দেওয়া হয়েছে!");
             } else {
                 showToast("ভুল পাসওয়ার্ড! সঠিক পাসওয়ার্ড দিন।", 'error');
+            }
+        }
+
+        function updateOrderStatus(orderId, newStatus) {
+            const order = state.orders.find(o => o.id === orderId);
+            if (order) {
+                order.status = newStatus;
+                saveState();
+                renderAdminView();
+                showToast(`অর্ডার স্ট্যাটাস পরিবর্তন করা হয়েছে: ${newStatus}`);
             }
         }
 
@@ -1043,7 +1128,7 @@
                     </form>
 
                     <!-- Product List Table -->
-                    <div class="bg-matte-800 rounded-2xl border border-gold-500/20 overflow-hidden">
+                    <div class="bg-matte-800 rounded-2xl border border-gold-500/20 overflow-x-auto">
                         <table class="w-full text-left text-xs text-stone-300">
                             <thead class="bg-matte-900 text-stone-400 uppercase font-bold border-b border-stone-800">
                                 <tr>
@@ -1061,7 +1146,7 @@
                                         <td class="p-3"><img src="${p.image}" class="w-10 h-10 object-cover rounded"></td>
                                         <td class="p-3 font-bold text-white">${p.name}</td>
                                         <td class="p-3 text-gold-400 font-semibold">${state.categories.find(c => c.id === p.category)?.name || p.category}</td>
-                                        <td class="p-3 font-bold text-white">৳${p.price} ${p.oldPrice ? `<span class="line-through text-stone-500 text-[10px]">৳${p.oldPrice}</span>` : ''}</td>
+                                        <td class="p-3 font-bold text-white">৳${p.price}${p.oldPrice ? `<span class="line-through text-stone-500 text-[10px]">৳${p.oldPrice}</span>` : ''}</td>
                                         <td class="p-3 font-mono">${p.sizes || 'N/A'}</td>
                                         <td class="p-3 space-x-2">
                                             <button onclick="editProduct(${p.id})" class="bg-amber-900/40 hover:bg-amber-800 text-amber-200 px-3 py-1.5 rounded-lg text-xs font-bold">
@@ -1104,7 +1189,7 @@
                         </div>
                     </form>
 
-                    <div class="bg-matte-800 rounded-2xl border border-gold-500/20 overflow-hidden">
+                    <div class="bg-matte-800 rounded-2xl border border-gold-500/20 overflow-x-auto">
                         <table class="w-full text-left text-xs text-stone-300">
                             <thead class="bg-matte-900 text-stone-400 uppercase font-bold border-b border-stone-800">
                                 <tr>
@@ -1133,26 +1218,44 @@
             } else if (state.adminTab === 'orders') {
                 html += `
                 <div class="space-y-6">
-                    <h2 class="text-2xl font-serif font-bold text-white">কাস্টমার অর্ডারসমূহ</h2>
-                    <div class="bg-matte-800 rounded-2xl border border-gold-500/20 overflow-hidden">
+                    <h2 class="text-2xl font-serif font-bold text-white">কাস্টমার অর্ডারসমূহ (রিয়েল-টাইম ডেটাবেজ)</h2>
+                    <div class="bg-matte-800 rounded-2xl border border-gold-500/20 overflow-x-auto">
                         <table class="w-full text-left text-xs text-stone-300">
                             <thead class="bg-matte-900 text-stone-400 uppercase font-bold border-b border-stone-800">
                                 <tr>
-                                    <th class="p-3">আইডি</th>
+                                    <th class="p-3">অর্ডার আইডি</th>
                                     <th class="p-3">কাস্টমার</th>
-                                    <th class="p-3">ঠিকানা</th>
-                                    <th class="p-3">মূল্য</th>
-                                    <th class="p-3">স্টেটাস</th>
+                                    <th class="p-3">অর্ডারকৃত পণ্য</th>
+                                    <th class="p-3">পেমেন্ট</th>
+                                    <th class="p-3">সর্বমোট</th>
+                                    <th class="p-3">স্ট্যাটাস</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-stone-800">
-                                ${state.orders.map(o => `
+                                ${state.orders.length === 0 ? `
+                                    <tr><td colspan="6" class="p-6 text-center text-stone-500">কোনো অর্ডার পাওয়া যায়নি।</td></tr>
+                                ` : state.orders.map(o => `
                                     <tr>
-                                        <td class="p-3 font-bold text-gold-400">${o.id}</td>
-                                        <td class="p-3 font-bold text-white">${o.customerName}<br><span class="text-stone-500 font-normal text-[10px]">${o.phone}</span></td>
-                                        <td class="p-3">${o.address}</td>
+                                        <td class="p-3 font-bold text-gold-400">${o.id}<br><span class="text-stone-500 text-[10px]">${o.date}</span></td>
+                                        <td class="p-3">
+                                            <span class="font-bold text-white block">${o.customerName}</span>
+                                            <span class="text-stone-400 text-[11px] block">${o.phone}</span>
+                                            <span class="text-stone-500 text-[10px] block line-clamp-1">${o.address}</span>
+                                        </td>
+                                        <td class="p-3">
+                                            ${(o.items || []).map(i => `<div class="text-white text-[11px]">• ${i.name} (x${i.quantity})</div>`).join('')}
+                                        </td>
+                                        <td class="p-3 font-semibold text-amber-300">
+                                            ${o.paymentMethod}${o.trxId ? `<span class="block text-stone-400 font-mono text-[10px]">TrxID: ${o.trxId}</span>` : ''}
+                                        </td>
                                         <td class="p-3 font-bold text-white">৳${o.totalAmount}</td>
-                                        <td class="p-3"><span class="bg-gold-500/20 text-gold-400 px-2 py-0.5 rounded text-[10px] font-bold">${o.status}</span></td>
+                                        <td class="p-3">
+                                            <select onchange="updateOrderStatus('${o.id}', this.value)" class="bg-matte-900 border border-gold-500/30 text-gold-400 text-[11px] font-bold py-1 px-2 rounded">
+                                                <option value="পেন্ডিং" ${o.status === 'পেন্ডিং' ? 'selected' : ''}>পেন্ডিং</option>
+                                                <option value="প্রসেসিং" ${o.status === 'প্রসেসিং' ? 'selected' : ''}>প্রসেসিং</option>
+                                                <option value="ডেলিভার্ড" ${o.status === 'ডেলিভার্ড' ? 'selected' : ''}>ডেলিভার্ড</option>
+                                            </select>
+                                        </td>
                                     </tr>
                                 `).join('')}
                             </tbody>
@@ -1166,7 +1269,7 @@
                 <div class="space-y-6">
                     <div>
                         <h2 class="text-2xl font-serif font-bold text-white">ওয়েবসাইট ও সিকিউরিটি সেটিংস</h2>
-                        <p class="text-xs text-stone-400">ফেসবুক পেজ লিঙ্ক, ফোন নম্বর ও এডমিন পাসওয়ার্ড পরিবর্তন করুন</p>
+                        <p class="text-xs text-stone-400">ফোন নম্বর, ঠিকানা, ম্যাপ লিংক ও পাসওয়ার্ড ব্যাকএন্ড থেকে ম্যানেজ করুন</p>
                     </div>
 
                     <form onsubmit="handleSaveSiteSettings(event)" class="bg-matte-800 p-6 rounded-2xl border border-gold-500/20 space-y-6">
@@ -1182,10 +1285,10 @@
                             </div>
                         </div>
 
-                        <!-- Social & Contact Settings -->
+                        <!-- Social, Contact & Outlet Settings -->
                         <div class="border-b border-stone-800 pb-6 space-y-4">
                             <h3 class="text-base font-bold text-gold-400 font-serif flex items-center gap-2">
-                                <i class="fa-solid fa-address-book"></i> সামাজিক মাধ্যম ও কন্টাক্ট লিঙ্ক
+                                <i class="fa-solid fa-address-book"></i> কন্টাক্ট লিঙ্ক ও আউটলেট লোকেশন
                             </h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
@@ -1213,9 +1316,15 @@
                                 </div>
                             </div>
 
-                            <div>
-                                <label class="block text-xs font-bold text-stone-300 uppercase mb-1">শোরুমের ঠিকানা *</label>
-                                <input type="text" required id="set-address" value="${s.address}" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-stone-300 uppercase mb-1">শোরুমের ঠিকানা *</label>
+                                    <input type="text" required id="set-address" value="${s.address}" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-stone-300 uppercase mb-1">গুগল ম্যাপ লিঙ্ক (URL)</label>
+                                    <input type="url" id="set-map-url" value="${s.mapUrl || ''}" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
+                                </div>
                             </div>
                         </div>
 
@@ -1304,7 +1413,6 @@
             const description = document.getElementById('p-desc').value;
 
             if (editId) {
-                // Update Existing Product
                 const pIndex = state.products.findIndex(p => p.id == editId);
                 if (pIndex !== -1) {
                     state.products[pIndex] = {
@@ -1314,7 +1422,6 @@
                     showToast(`"${name}" প্রোডাক্ট সফলভাবে আপডেট হয়েছে!`);
                 }
             } else {
-                // Add New Product
                 const newProd = {
                     id: Date.now(),
                     name, category, price, oldPrice, sizes, colors,
@@ -1358,7 +1465,7 @@
 
         function handleSaveSiteSettings(e) {
             e.preventDefault();
-            
+
             state.siteSettings = {
                 adminPassword: document.getElementById('set-admin-pass').value.trim(),
                 facebook: document.getElementById('set-fb').value.trim(),
@@ -1367,6 +1474,7 @@
                 whatsapp: document.getElementById('set-wa').value.trim(),
                 email: document.getElementById('set-email').value.trim(),
                 address: document.getElementById('set-address').value.trim(),
+                mapUrl: document.getElementById('set-map-url').value.trim(),
                 topNotice: document.getElementById('set-top-notice').value.trim(),
                 heroTitle: document.getElementById('set-hero-title').value.trim(),
                 heroImage: document.getElementById('set-hero-img').value.trim(),
@@ -1432,4 +1540,3 @@
     </script>
 </body>
 </html>
-
