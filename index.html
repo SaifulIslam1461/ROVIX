@@ -536,11 +536,16 @@
         };
 
         function saveState() {
-            localStorage.setItem('rovix_categories', JSON.stringify(state.categories));
-            localStorage.setItem('rovix_products', JSON.stringify(state.products));
-            localStorage.setItem('rovix_settings', JSON.stringify(state.siteSettings));
-            localStorage.setItem('rovix_cart', JSON.stringify(state.cart));
-            localStorage.setItem('rovix_orders', JSON.stringify(state.orders));
+            try {
+                localStorage.setItem('rovix_categories', JSON.stringify(state.categories));
+                localStorage.setItem('rovix_products', JSON.stringify(state.products));
+                localStorage.setItem('rovix_settings', JSON.stringify(state.siteSettings));
+                localStorage.setItem('rovix_cart', JSON.stringify(state.cart));
+                localStorage.setItem('rovix_orders', JSON.stringify(state.orders));
+            } catch (e) {
+                console.error("Storage limit reached:", e);
+                showToast("মেমোরি ফুল হয়ে গেছে! ইমেজের ফাইল সাইজ আরও ছোট করুন।", "error");
+            }
         }
 
         function showToast(msg, type = 'success') {
@@ -994,14 +999,41 @@
             }
         }
 
-        // Handle Image Upload from device/profile
+        // Handle Image Upload with Automatic Canvas Compression for LocalStorage Compatibility
         function handleImageUpload(e) {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(event) {
-                    document.getElementById('p-img').value = event.target.result;
-                    showToast("ছবি সফলভাবে সিলেক্ট করা হয়েছে!");
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        const maxWidth = 600;
+                        const scaleSize = maxWidth / img.width;
+                        
+                        if (scaleSize < 1) {
+                            canvas.width = maxWidth;
+                            canvas.height = img.height * scaleSize;
+                        } else {
+                            canvas.width = img.width;
+                            canvas.height = img.height;
+                        }
+
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                        // Compress Image to JPEG format with 0.75 quality
+                        const compressedBase64 = canvas.toDataURL('image/jpeg', 0.75);
+                        document.getElementById('p-img').value = compressedBase64;
+                        
+                        const preview = document.getElementById('p-img-preview');
+                        if (preview) {
+                            preview.src = compressedBase64;
+                            preview.parentElement.classList.remove('hidden');
+                        }
+                        showToast("ছবি প্রসেস করা হয়েছে!");
+                    };
+                    img.src = event.target.result;
                 };
                 reader.readAsDataURL(file);
             }
@@ -1124,7 +1156,10 @@
                                 <label class="block text-xs font-bold text-gold-400 uppercase mb-1">পণ্যের ছবি আপলোড করুন (গ্যালারি বা ডিভাইস থেকে) *</label>
                                 <input type="file" accept="image/*" id="p-img-file" onchange="handleImageUpload(event)" class="w-full px-3 py-2 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs file:mr-4 file:py-1.5 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-gold-500 file:text-matte-900 hover:file:bg-gold-400">
                                 <input type="hidden" id="p-img" value="${pEdit ? pEdit.image : ''}">
-                                ${pEdit && pEdit.image ? `<div class="mt-2 flex items-center gap-2"><span class="text-[10px] text-stone-400">বর্তমান ছবি:</span><img src="${pEdit.image}" class="w-10 h-10 object-cover rounded-lg border border-gold-500/30"></div>` : ''}
+                                <div class="${pEdit && pEdit.image ? '' : 'hidden'} mt-2 flex items-center gap-2">
+                                    <span class="text-[10px] text-stone-400">ছবি প্রিভিউ:</span>
+                                    <img id="p-img-preview" src="${pEdit && pEdit.image ? pEdit.image : ''}" class="w-12 h-12 object-cover rounded-lg border border-gold-500/30">
+                                </div>
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-gold-400 uppercase mb-1">রং / কালার (ঐচ্ছিক)</label>
@@ -1425,8 +1460,16 @@
             const sizes = document.getElementById('p-sizes').value;
             const colors = document.getElementById('p-colors').value;
             
-            const imageInputVal = document.getElementById('p-img').value;
-            const image = imageInputVal ? imageInputVal : (editId ? state.products.find(p => p.id == editId)?.image : 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500&auto=format&fit=crop&q=80');
+            let image = document.getElementById('p-img').value;
+            
+            if (!image) {
+                if (editId) {
+                    image = state.products.find(p => p.id == editId)?.image;
+                } else {
+                    showToast("দয়া করে পণ্যের ছবি সিলেক্ট করুন!", "error");
+                    return;
+                }
+            }
             
             const description = document.getElementById('p-desc').value;
 
