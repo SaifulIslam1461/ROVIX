@@ -423,7 +423,7 @@
             { id: 'accessories', name: 'এক্সেসরিজ', icon: 'fa-glasses' }
         ];
 
-        // Initial Sample Products (with multiple images array support)
+        // Initial Sample Products
         const initialProducts = [
             {
                 id: 201,
@@ -521,7 +521,7 @@
             }
         ];
 
-        // Default Site Customization Settings with multiple Hero Banners
+        // Default Site Customization Settings
         const initialSiteSettings = {
             adminPassword: "admin123",
             phone: "01620839283",
@@ -571,10 +571,9 @@
             orders: JSON.parse(localStorage.getItem('rovix_orders')) || initialOrders,
             shippingFee: 70,
             activeHeroIndex: 0,
-            productImageIndexes: {} // tracks current image index for each product card slider
+            productImageIndexes: {}
         };
 
-        // Auto slide interval tracker
         let heroInterval = null;
 
         function saveState() {
@@ -587,12 +586,13 @@
                 localStorage.setItem('rovix_orders', JSON.stringify(state.orders));
             } catch (e) {
                 console.error("Storage limit reached:", e);
-                showToast("মেমোরি ফুল হয়ে গেছে! ইমেজের ফাইল সাইজ আরও ছোট করুন।", "error");
+                showToast("মেমোরি ফুল হয়ে গেছে! ইমেজের সাইজ ছোট করুন।", "error");
             }
         }
 
         function showToast(msg, type = 'success') {
             const container = document.getElementById('toast-container');
+            if(!container) return;
             const toast = document.createElement('div');
             toast.className = `p-4 rounded-xl text-xs font-bold shadow-2xl flex items-center gap-3 transition-all border pointer-events-auto ${type === 'success' ? 'bg-matte-800 text-gold-400 border-gold-500' : 'bg-red-950 text-white border-red-500'}`;
             toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check text-green-400' : 'fa-triangle-exclamation'} text-base"></i> <span>${msg}</span>`;
@@ -602,9 +602,10 @@
 
         function updateDynamicSiteInfo() {
             const s = state.siteSettings;
-            if(!document.getElementById('site-top-notice')) return;
+            const noticeEl = document.getElementById('site-top-notice');
+            if(!noticeEl) return;
 
-            document.getElementById('site-top-notice').innerHTML = `<i class="fa-solid fa-crown text-gold-500 mr-1.5"></i> ${s.topNotice}`;
+            noticeEl.innerHTML = `<i class="fa-solid fa-crown text-gold-500 mr-1.5"></i> ${s.topNotice || ''}`;
             document.getElementById('header-phone-display').innerText = s.phone;
             document.getElementById('header-phone-link').href = `https://wa.me/${s.whatsapp}`;
 
@@ -614,7 +615,7 @@
             document.getElementById('footer-address-display').innerText = s.address;
             document.getElementById('footer-phone-display').innerText = s.phone;
             document.getElementById('footer-email-display').innerText = s.email;
-            if(document.getElementById('footer-map-link')) document.getElementById('footer-map-link'].href = s.mapUrl || '#';
+            if(document.getElementById('footer-map-link')) document.getElementById('footer-map-link').href = s.mapUrl || '#';
         }
 
         function renderCategoryNavs() {
@@ -640,16 +641,14 @@
 
         function switchCategory(catId) {
             state.selectedCategory = catId;
-            if(state.view !== 'store') {
-                state.view = 'store';
-                document.getElementById('store-footer').classList.remove('hidden');
-            }
+            state.view = 'store';
+            const footer = document.getElementById('store-footer');
+            if(footer) footer.classList.remove('hidden');
             renderStorefront();
             renderCategoryNavs();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Hero Slider Controls
         function startHeroSlider() {
             if (heroInterval) clearInterval(heroInterval);
             heroInterval = setInterval(() => {
@@ -657,8 +656,7 @@
                 if (images.length > 1) {
                     state.activeHeroIndex = (state.activeHeroIndex + 1) % images.length;
                     const imgEl = document.getElementById('hero-slider-img');
-                    const dotsContainer = document.getElementById('hero-dots');
-                    if (imgEl && dotsContainer) {
+                    if (imgEl) {
                         imgEl.src = images[state.activeHeroIndex];
                         updateHeroDots(images.length);
                     }
@@ -672,7 +670,7 @@
             const imgEl = document.getElementById('hero-slider-img');
             if (imgEl) imgEl.src = images[index];
             updateHeroDots(images.length);
-            startHeroSlider(); // reset timer
+            startHeroSlider();
         }
 
         function updateHeroDots(total) {
@@ -685,7 +683,6 @@
             dotsContainer.innerHTML = dotsHtml;
         }
 
-        // Product Card Image Slider Control
         function nextProductImage(productId, totalImages, event) {
             event.stopPropagation();
             if (!state.productImageIndexes[productId]) state.productImageIndexes[productId] = 0;
@@ -722,6 +719,12 @@
         function renderStorefront() {
             updateDynamicSiteInfo();
             const main = document.getElementById('main-container');
+            if(!main) return;
+
+            if (state.view === 'admin') {
+                renderAdminView();
+                return;
+            }
 
             let filtered = state.products;
             if (state.selectedCategory !== 'all') {
@@ -730,13 +733,11 @@
 
             let html = '';
 
-            // Hero section on 'all' with Image Slider (Image 1 / 5208.jpg style)
             if (state.selectedCategory === 'all') {
                 const heroImgs = state.siteSettings.heroImages && state.siteSettings.heroImages.length > 0 ? state.siteSettings.heroImages : [state.siteSettings.heroImage];
                 if (state.activeHeroIndex >= heroImgs.length) state.activeHeroIndex = 0;
 
                 html += `
-                <!-- Luxury Hero Slider -->
                 <section class="relative bg-gradient-to-b from-matte-900 via-matte-800 to-matte-900 border-b border-gold-500/20 py-12 md:py-20 overflow-hidden">
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                         <div class="space-y-6 text-center md:text-left">
@@ -759,27 +760,20 @@
                             </div>
                         </div>
 
-                        <!-- Hero Multiple Image Slider Container (Image 5208.jpg style with indicator dots) -->
                         <div class="relative flex flex-col items-center justify-center">
                             <div class="w-80 sm:w-96 h-80 sm:h-96 rounded-3xl bg-matte-800 border-2 border-gold-500/40 p-3 shadow-2xl relative group overflow-hidden">
                                 <img id="hero-slider-img" src="${heroImgs[state.activeHeroIndex]}" loading="lazy" class="w-full h-full object-cover rounded-2xl transition duration-500">
-                                
                                 <div class="absolute bottom-6 left-6 right-6 bg-matte-900/90 backdrop-blur p-4 rounded-xl border border-gold-500/30">
                                     <span class="text-gold-400 font-serif font-bold text-xs uppercase block">হট সেলস অফার</span>
                                     <h4 class="text-white font-bold text-sm">রোভিক্স রয়েল ফুটওয়্যার ও লেদার গুডস</h4>
                                     <p class="text-gold-300 font-extrabold text-xs">প্রিমিয়াম জেনুইন লেদার</p>
                                 </div>
                             </div>
-
-                            <!-- Slider Dots Indicator (as seen in 5208.jpg) -->
-                            <div id="hero-dots" class="flex items-center gap-2 mt-4">
-                                <!-- Rendered dynamically -->
-                            </div>
+                            <div id="hero-dots" class="flex items-center gap-2 mt-4"></div>
                         </div>
                     </div>
                 </section>
 
-                <!-- Featured Categories (Mobile 3-Column Square Grid) -->
                 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 border-b border-stone-800/80">
                     <h3 class="text-lg font-serif font-bold text-white mb-4 flex items-center gap-2">
                         <i class="fa-solid fa-layer-group text-gold-500 text-sm"></i> পপুলার ক্যাটাগরি
@@ -798,7 +792,6 @@
                 startHeroSlider();
             }
 
-            // Products Grid (Mobile 2-Column Grid with Multi-Image Slider support per card - 5209.jpg style)
             html += `
             <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
                 <div class="flex justify-between items-end mb-6 border-b border-stone-800 pb-4">
@@ -831,20 +824,14 @@
                     html += `
                     <div class="bg-matte-800 rounded-xl sm:rounded-2xl border border-gold-500/20 overflow-hidden shadow-xl hover:border-gold-500/50 transition duration-300 flex flex-col justify-between group">
                         <div>
-                            <!-- Product Image Slider Box (Multiple images sliding one after another as requested) -->
                             <div class="relative aspect-square overflow-hidden bg-matte-900">
                                 <img id="prod-img-${p.id}" src="${pImages[currentImgIdx]}" alt="${p.name}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                                
-                                <!-- Badge (BESTSELLER / POPULAR like 5209.jpg) -->
                                 <span class="absolute top-2 left-2 bg-gradient-to-r from-blue-900 to-indigo-900 text-white text-[9px] sm:text-[10px] font-extrabold px-2 py-0.5 rounded shadow uppercase tracking-wider border border-blue-500/30">
                                     ${badgeText}
                                 </span>
-
                                 <span class="absolute top-2 right-2 bg-matte-900/90 text-gold-400 text-[10px] sm:text-xs font-bold px-2 py-0.5 sm:py-1 rounded-full border border-gold-500/30">
                                     <i class="fa-solid fa-star text-gold-400 text-[9px]"></i> ${p.rating}
                                 </span>
-
-                                <!-- Multi-image navigation arrows if more than 1 image -->
                                 ${pImages.length > 1 ? `
                                     <button onclick="prevProductImage(${p.id}, ${pImages.length}, event)" class="absolute left-1 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black text-white w-7 h-7 rounded-full flex items-center justify-center text-xs opacity-70 group-hover:opacity-100 transition">
                                         <i class="fa-solid fa-chevron-left"></i>
@@ -882,7 +869,6 @@
                                 ${p.oldPrice ? `<span class="text-[10px] sm:text-xs text-stone-500 line-through">৳${p.oldPrice.toLocaleString('bn-BD')}</span>` : ''}
                             </div>
 
-                            <!-- Dual Buttons: Quick Order Now & Add to Cart -->
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
                                 <button onclick="quickOrder(${p.id})" class="gold-gradient-bg text-matte-900 py-2 rounded-lg font-black text-xs transition flex items-center justify-center gap-1 shadow-md uppercase tracking-wider">
                                     <i class="fa-solid fa-bolt text-xs"></i> Order Now
@@ -902,7 +888,7 @@
             </section>
             `;
 
-            // Watch & Shop Video Section (Image 5211.jpg style - ببینুন, পছন্দ করুন, অর্ডার করুন)
+            // Watch & Shop Video Reels Section
             html += `
             <section class="bg-gradient-to-b from-matte-900 via-matte-800 to-matte-900 py-14 border-t border-b border-gold-500/20">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -912,20 +898,15 @@
                         <div class="w-16 h-0.5 bg-gold-500 mx-auto"></div>
                     </div>
 
-                    <!-- Horizontal Scrolling Reels Container -->
                     <div class="flex overflow-x-auto gap-5 pb-6 custom-scrollbar snap-x">
                         ${state.videos.map(v => `
                             <div class="min-w-[240px] sm:min-w-[280px] bg-matte-900 rounded-2xl border border-gold-500/30 overflow-hidden shadow-2xl snap-center flex flex-col justify-between group relative">
                                 <div class="relative aspect-[9/16] bg-black overflow-hidden">
                                     <video src="${v.videoUrl}" poster="${v.thumbnail}" autoplay loop muted playsinline class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></video>
-                                    
-                                    <!-- Brand Watermark Top -->
                                     <div class="absolute top-3 left-3 bg-matte-900/80 backdrop-blur px-2.5 py-1 rounded-full border border-gold-500/30 flex items-center gap-1.5">
                                         <div class="w-4 h-4 rounded-full bg-gold-500 text-matte-900 font-bold text-[9px] flex items-center justify-center">R</div>
                                         <span class="text-[10px] font-bold text-white tracking-wider">ROVIX</span>
                                     </div>
-
-                                    <!-- Bottom Action Overlay -->
                                     <div class="absolute bottom-4 left-4 right-4 bg-matte-900/90 backdrop-blur p-3 rounded-xl border border-gold-500/30 space-y-2">
                                         <h4 class="text-white font-bold text-xs line-clamp-1">${v.title}</h4>
                                         <button onclick="switchCategory('all')" class="w-full gold-gradient-bg text-matte-900 py-1.5 rounded-lg font-black text-[11px] uppercase tracking-wider flex items-center justify-center gap-1">
@@ -1144,7 +1125,8 @@
         function openAdminLoginModal() {
             if (state.isAdminLoggedIn) {
                 state.view = 'admin';
-                document.getElementById('store-footer').classList.add('hidden');
+                const footer = document.getElementById('store-footer');
+                if(footer) footer.classList.add('hidden');
                 renderAdminView();
             } else {
                 document.getElementById('admin-login-modal').classList.remove('hidden');
@@ -1162,7 +1144,8 @@
                 state.isAdminLoggedIn = true;
                 state.view = 'admin';
                 closeAdminLoginModal();
-                document.getElementById('store-footer').classList.add('hidden');
+                const footer = document.getElementById('store-footer');
+                if(footer) footer.classList.add('hidden');
                 renderAdminView();
                 showToast("এডমিন ড্যাশবোর্ডে প্রবেশের অনুমতি দেওয়া হয়েছে!");
             } else {
@@ -1180,7 +1163,6 @@
             }
         }
 
-        // Handle Image Upload with Compression
         let tempUploadedImages = [];
         function handleImageUpload(e) {
             const files = e.target.files;
@@ -1188,7 +1170,7 @@
                 tempUploadedImages = [];
                 let loadedCount = 0;
 
-                Array.from(files).forEach((file, index) => {
+                Array.from(files).forEach((file) => {
                     const reader = new FileReader();
                     reader.onload = function(event) {
                         const img = new Image();
@@ -1231,10 +1213,10 @@
 
         function renderAdminView() {
             const main = document.getElementById('main-container');
+            if(!main) return;
 
             let html = `
             <div class="bg-matte-900 min-h-screen text-stone-200 flex flex-col md:flex-row border-t border-gold-500/30">
-                <!-- Admin Sidebar Navigation -->
                 <aside class="w-full md:w-64 bg-matte-800 p-6 border-r border-gold-500/20 space-y-6">
                     <div class="border-b border-stone-800 pb-4 flex justify-between items-center">
                         <div>
@@ -1265,7 +1247,6 @@
                     </nav>
                 </aside>
 
-                <!-- Admin Dynamic Body Panel -->
                 <main class="flex-1 p-6 md:p-10">
             `;
 
@@ -1343,13 +1324,13 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-gold-400 uppercase mb-1">একাধিক ছবি আপলোড করুন (একাধিক সিলেক্ট করা যাবে) *</label>
+                                <label class="block text-xs font-bold text-gold-400 uppercase mb-1">একাধিক ছবি আপলোড করুন *</label>
                                 <input type="file" accept="image/*" multiple id="p-img-files" onchange="handleImageUpload(event)" class="w-full px-3 py-2 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs file:mr-4 file:py-1.5 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-gold-500 file:text-matte-900 hover:file:bg-gold-400">
                                 <input type="hidden" id="p-imgs-data" value="">
                                 <div id="p-img-preview-box" class="hidden mt-2 flex items-center gap-2 flex-wrap"></div>
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-gold-400 uppercase mb-1">উপলব্ধ সাইজসমূহ (কমা দিয়ে)</label>
+                                <label class="block text-xs font-bold text-gold-400 uppercase mb-1">উপলব্ধ সাইজসমূহ</label>
                                 <input type="text" id="p-sizes" value="${pEdit && pEdit.sizes ? pEdit.sizes : ''}" placeholder="যেমন: 39, 40, 41, 42" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
                             </div>
                         </div>
@@ -1364,7 +1345,6 @@
                         </button>
                     </form>
 
-                    <!-- Product List Table -->
                     <div class="bg-matte-800 rounded-2xl border border-gold-500/20 overflow-x-auto">
                         <table class="w-full text-left text-xs text-stone-300">
                             <thead class="bg-matte-900 text-stone-400 uppercase font-bold border-b border-stone-800">
@@ -1498,7 +1478,7 @@
                 <div class="space-y-6">
                     <div>
                         <h2 class="text-2xl font-serif font-bold text-white">ওয়েবসাইট ও হিরো ব্যানার স্লাইডার সেটিংস</h2>
-                        <p class="text-xs text-stone-400">একাধিক হিরো ব্যানার ইমেজ লিংক কমা দিয়ে এখানে যুক্ত করতে পারেন</p>
+                        <p class="text-xs text-stone-400">একাধিক হিরো ব্যানার ইমেজ লিংক কমা বা লাইন বাই লাইন যুক্ত করুন</p>
                     </div>
 
                     <form onsubmit="handleSaveSiteSettings(event)" class="bg-matte-800 p-6 rounded-2xl border border-gold-500/20 space-y-6">
@@ -1517,7 +1497,7 @@
                         </div>
 
                         <div class="space-y-4">
-                            <h3 class="text-base font-bold text-gold-400 font-serif">হিরো ব্যানার স্লাইডার ইমেজ লিংকসমূহ (প্রতি লাইনে একটি অথবা কমা দিয়ে)</h3>
+                            <h3 class="text-base font-bold text-gold-400 font-serif">হিরো ব্যানার স্লাইডার ইমেজ লিংকসমূহ (প্রতি লাইনে একটি)</h3>
                             <div>
                                 <textarea id="set-hero-images" rows="4" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs font-mono">${(s.heroImages || [s.heroImage]).join('\n')}</textarea>
                             </div>
@@ -1710,7 +1690,6 @@
             renderStorefront();
         };
 
-        // Service Worker Registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW error:', err));
