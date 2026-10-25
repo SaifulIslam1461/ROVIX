@@ -201,7 +201,7 @@
         </div>
     </div>
 
-    <!-- Checkout Modal (Order Now & Multiple Payment Methods) -->
+    <!-- Checkout Modal -->
     <div id="checkout-modal" class="fixed inset-0 z-50 overflow-y-auto hidden">
         <div class="flex items-center justify-center min-h-screen px-4 py-8 text-center sm:block sm:p-0">
             <div onclick="closeCheckoutModal()" class="fixed inset-0 transition-opacity bg-black/80 backdrop-blur-md"></div>
@@ -249,7 +249,6 @@
                         </div>
                     </div>
 
-                    <!-- Dynamic Payment Instructions -->
                     <div id="payment-instructions" class="hidden p-3 bg-matte-900 rounded-xl border border-gold-500/30 text-xs space-y-1">
                         <p class="text-amber-300 font-bold" id="pay-number-text">বিকাশ সেন্ড মানি নম্বর: 01620839283</p>
                         <p class="text-stone-400">টাকা পাঠানোর পর ট্রানজেকশন আইডি (TrxID) নিচে লিখুন:</p>
@@ -403,8 +402,6 @@
 
             <div class="border-t border-stone-800 pt-6 text-center text-xs text-stone-500 flex flex-col sm:flex-row justify-between items-center gap-4">
                 <p>© ২০২৬ ROVIX Football & Leather Goods. সর্বস্বত্ব সংরক্ষিত।</p>
-
-                <!-- Secret Admin Access Gateway -->
                 <button onclick="openAdminLoginModal()" class="text-stone-600 hover:text-gold-500 text-[11px] transition flex items-center gap-1">
                     <i class="fa-solid fa-lock"></i> <span>এডমিন পোর্টাল</span>
                 </button>
@@ -413,7 +410,6 @@
     </footer>
 
     <script>
-        // Initial Default Categories
         const initialCategories = [
             { id: 'shoes', name: 'জুতো ও ফুটওয়্যার', icon: 'fa-shoe-prints' },
             { id: 'wallets', name: 'মানিব্যাগ', icon: 'fa-wallet' },
@@ -423,7 +419,6 @@
             { id: 'accessories', name: 'এক্সেসরিজ', icon: 'fa-glasses' }
         ];
 
-        // Initial Sample Products
         const initialProducts = [
             {
                 id: 201,
@@ -499,7 +494,6 @@
             }
         ];
 
-        // Initial Watch & Shop Video Reels Data
         const initialVideos = [
             {
                 id: 1,
@@ -521,7 +515,6 @@
             }
         ];
 
-        // Default Site Customization Settings
         const initialSiteSettings = {
             adminPassword: "admin123",
             phone: "01620839283",
@@ -556,13 +549,13 @@
             }
         ];
 
-        // Global Central State
         let state = {
             view: 'store',
             selectedCategory: 'all',
             isAdminLoggedIn: false,
             adminTab: 'dashboard',
             editingProduct: null,
+            editingVideo: null,
             categories: JSON.parse(localStorage.getItem('rovix_categories')) || initialCategories,
             products: JSON.parse(localStorage.getItem('rovix_products')) || initialProducts,
             videos: JSON.parse(localStorage.getItem('rovix_videos')) || initialVideos,
@@ -586,7 +579,7 @@
                 localStorage.setItem('rovix_orders', JSON.stringify(state.orders));
             } catch (e) {
                 console.error("Storage limit reached:", e);
-                showToast("মেমোরি ফুল হয়ে গেছে! ইমেজের সাইজ ছোট করুন।", "error");
+                showToast("মেমোরি ফুল হয়ে গেছে!", "error");
             }
         }
 
@@ -760,6 +753,7 @@
                             </div>
                         </div>
 
+                        <!-- First Image Style Hero Slider Container -->
                         <div class="relative flex flex-col items-center justify-center">
                             <div class="w-80 sm:w-96 h-80 sm:h-96 rounded-3xl bg-matte-800 border-2 border-gold-500/40 p-3 shadow-2xl relative group overflow-hidden">
                                 <img id="hero-slider-img" src="${heroImgs[state.activeHeroIndex]}" loading="lazy" class="w-full h-full object-cover rounded-2xl transition duration-500">
@@ -888,7 +882,7 @@
             </section>
             `;
 
-            // Watch & Shop Video Reels Section
+            // Second Image Style Watch & Shop Video Reels Section
             html += `
             <section class="bg-gradient-to-b from-matte-900 via-matte-800 to-matte-900 py-14 border-t border-b border-gold-500/20">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1235,6 +1229,9 @@
                         <button onclick="switchAdminTab('products')" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-xs transition ${state.adminTab === 'products' ? 'gold-gradient-bg text-matte-900 shadow-lg' : 'text-stone-400 hover:bg-matte-700 hover:text-white'}">
                             <i class="fa-solid fa-boxes-stacked"></i> পণ্য ব্যবস্থাপনা (${state.products.length})
                         </button>
+                        <button onclick="switchAdminTab('videos')" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-xs transition ${state.adminTab === 'videos' ? 'gold-gradient-bg text-matte-900 shadow-lg' : 'text-stone-400 hover:bg-matte-700 hover:text-white'}">
+                            <i class="fa-solid fa-video"></i> ওয়াচ অ্যান্ড শপ ভিডিও (${state.videos.length})
+                        </button>
                         <button onclick="switchAdminTab('categories')" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-xs transition ${state.adminTab === 'categories' ? 'gold-gradient-bg text-matte-900 shadow-lg' : 'text-stone-400 hover:bg-matte-700 hover:text-white'}">
                             <i class="fa-solid fa-layer-group"></i> ক্যাটাগরি কন্ট্রোল (${state.categories.length})
                         </button>
@@ -1376,6 +1373,73 @@
                     </div>
                 </div>
                 `;
+            } else if (state.adminTab === 'videos') {
+                const vEdit = state.editingVideo;
+                html += `
+                <div class="space-y-8">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h2 class="text-2xl font-serif font-bold text-white">${vEdit ? 'ভিডিও এডিট করুন' : 'ওয়াচ অ্যান্ড শপ ভিডিও যুক্ত করুন'}</h2>
+                            <p class="text-xs text-stone-400">নিচের রিলস বা শর্টস সেকশনের জন্য ভিডিও লিঙ্ক ও থাম্বনেইল যুক্ত করুন</p>
+                        </div>
+                        ${vEdit ? `
+                            <button onclick="cancelVideoEdit()" class="bg-stone-700 hover:bg-stone-600 text-white text-xs px-4 py-2 rounded-xl">
+                                নতুন ভিডিও মোডে ফিরে যান
+                            </button>
+                        ` : ''}
+                    </div>
+
+                    <form onsubmit="handleSaveVideo(event)" class="bg-matte-800 p-6 rounded-2xl border border-gold-500/20 space-y-4">
+                        <input type="hidden" id="v-edit-id" value="${vEdit ? vEdit.id : ''}">
+                        
+                        <div>
+                            <label class="block text-xs font-bold text-gold-400 uppercase mb-1">ভিডিও টাইটেল / নাম *</label>
+                            <input type="text" required id="v-title" value="${vEdit ? vEdit.title : ''}" placeholder="যেমন: Luxury Wallet Review" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gold-400 uppercase mb-1">ভিডিও লিংক (MP4 Direct URL) *</label>
+                                <input type="url" required id="v-url" value="${vEdit ? vEdit.videoUrl : ''}" placeholder="https://assets.mixkit.co/videos/..." class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gold-400 uppercase mb-1">থাম্বনেইল ইমেজ লিংক (Thumbnail Image URL) *</label>
+                                <input type="url" required id="v-thumb" value="${vEdit ? vEdit.thumbnail : ''}" placeholder="https://images.unsplash.com/..." class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="gold-gradient-bg text-matte-900 font-extrabold px-8 py-3 rounded-xl text-xs shadow-lg">
+                            ${vEdit ? 'ভিডিও আপডেট করুন' : 'ভিডিও যোগ করুন'}
+                        </button>
+                    </form>
+
+                    <div class="bg-matte-800 rounded-2xl border border-gold-500/20 overflow-x-auto">
+                        <table class="w-full text-left text-xs text-stone-300">
+                            <thead class="bg-matte-900 text-stone-400 uppercase font-bold border-b border-stone-800">
+                                <tr>
+                                    <th class="p-3">থাম্বনেইল</th>
+                                    <th class="p-3">টাইটেল</th>
+                                    <th class="p-3">ভিডিও লিংক</th>
+                                    <th class="p-3">অ্যাকশন</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-stone-800">
+                                ${state.videos.map(v => `
+                                    <tr>
+                                        <td class="p-3"><img src="${v.thumbnail}" class="w-10 h-10 object-cover rounded"></td>
+                                        <td class="p-3 font-bold text-white">${v.title}</td>
+                                        <td class="p-3 font-mono text-stone-400 truncate max-w-xs">${v.videoUrl}</td>
+                                        <td class="p-3 space-x-2">
+                                            <button onclick="editVideo(${v.id})" class="bg-amber-900/40 hover:bg-amber-800 text-amber-200 px-3 py-1.5 rounded-lg text-xs font-bold">এডিট</button>
+                                            <button onclick="deleteVideo(${v.id})" class="bg-red-900/40 hover:bg-red-800 text-red-200 px-3 py-1.5 rounded-lg text-xs font-bold">ডিলেট</button>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                `;
             } else if (state.adminTab === 'categories') {
                 html += `
                 <div class="space-y-8">
@@ -1478,7 +1542,7 @@
                 <div class="space-y-6">
                     <div>
                         <h2 class="text-2xl font-serif font-bold text-white">ওয়েবসাইট ও হিরো ব্যানার স্লাইডার সেটিংস</h2>
-                        <p class="text-xs text-stone-400">একাধিক হিরো ব্যানার ইমেজ লিংক কমা বা লাইন বাই লাইন যুক্ত করুন</p>
+                        <p class="text-xs text-stone-400">একাধিক হিরো ব্যানার ইমেজ লিংক প্রতি লাইনে একটি করে দিন</p>
                     </div>
 
                     <form onsubmit="handleSaveSiteSettings(event)" class="bg-matte-800 p-6 rounded-2xl border border-gold-500/20 space-y-6">
@@ -1522,6 +1586,7 @@
         function switchAdminTab(tab) {
             state.adminTab = tab;
             state.editingProduct = null;
+            state.editingVideo = null;
             renderAdminView();
         }
 
@@ -1544,6 +1609,56 @@
                 renderAdminView();
                 showToast("পণ্য ডিলেট করা হয়েছে।");
             }
+        }
+
+        function editVideo(videoId) {
+            state.editingVideo = state.videos.find(v => v.id === videoId);
+            state.adminTab = 'videos';
+            renderAdminView();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function cancelVideoEdit() {
+            state.editingVideo = null;
+            renderAdminView();
+        }
+
+        function deleteVideo(videoId) {
+            if (confirm("আপনি কি নিশ্চিতভাবে এই ভিডিওটি ডিলেট করতে চান?")) {
+                state.videos = state.videos.filter(v => v.id !== videoId);
+                saveState();
+                renderAdminView();
+                showToast("ভিডিও ডিলেট করা হয়েছে।");
+            }
+        }
+
+        function handleSaveVideo(e) {
+            e.preventDefault();
+            const editId = document.getElementById('v-edit-id').value;
+            const title = document.getElementById('v-title').value;
+            const videoUrl = document.getElementById('v-url').value;
+            const thumbnail = document.getElementById('v-thumb').value;
+
+            if (editId) {
+                const vIndex = state.videos.findIndex(v => v.id == editId);
+                if (vIndex !== -1) {
+                    state.videos[vIndex] = { ...state.videos[vIndex], title, videoUrl, thumbnail };
+                    showToast("ভিডিও সফলভাবে আপডেট হয়েছে!");
+                }
+            } else {
+                const newVid = {
+                    id: Date.now(),
+                    title,
+                    videoUrl,
+                    thumbnail
+                };
+                state.videos.unshift(newVid);
+                showToast("নতুন ভিডিও সফলভাবে যোগ করা হয়েছে!");
+            }
+
+            state.editingVideo = null;
+            saveState();
+            renderAdminView();
         }
 
         function handleSaveProduct(e) {
