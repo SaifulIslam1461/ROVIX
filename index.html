@@ -67,6 +67,7 @@
         }
         .custom-scrollbar::-webkit-scrollbar {
             width: 6px;
+            height: 6px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
             background: #141414;
@@ -422,7 +423,7 @@
             { id: 'accessories', name: 'এক্সেসরিজ', icon: 'fa-glasses' }
         ];
 
-        // Initial Sample Products
+        // Initial Sample Products (with multiple images array support)
         const initialProducts = [
             {
                 id: 201,
@@ -430,12 +431,16 @@
                 category: "shoes",
                 price: 3450,
                 oldPrice: 4200,
+                badge: "BESTSELLER",
                 sizes: "40, 41, 42, 43, 44",
                 colors: "Black, Gold",
                 stock: 15,
                 rating: 5.0,
                 reviewsCount: 42,
-                image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500&auto=format&fit=crop&q=80",
+                images: [
+                    "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=500&auto=format&fit=crop&q=80"
+                ],
                 description: "এক্সট্রা কমফোর্ট কুশনিং সোলে তৈরি রিয়েল লেদার লাক্সারি স্নিকার্স। টেকসই ও আরামদায়ক।"
             },
             {
@@ -444,12 +449,16 @@
                 category: "shoes",
                 price: 3990,
                 oldPrice: 4800,
+                badge: "BESTSELLER",
                 sizes: "39, 40, 41, 42, 43",
                 colors: "Dark Brown",
                 stock: 10,
                 rating: 4.9,
                 reviewsCount: 31,
-                image: "https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?w=500&auto=format&fit=crop&q=80",
+                images: [
+                    "https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?w=500&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1533867617858-e7d97e0afd8b?w=500&auto=format&fit=crop&q=80"
+                ],
                 description: "অফিসিয়াল ও ক্লাসি আউটফিটের জন্য তৈরি আর্টিসানাল হ্যান্ডমেড ফরমাল চামড়ার জুতো।"
             },
             {
@@ -458,12 +467,16 @@
                 category: "wallets",
                 price: 1450,
                 oldPrice: 1850,
+                badge: "POPULAR",
                 sizes: "Standard",
                 colors: "Black",
                 stock: 25,
                 rating: 5.0,
                 reviewsCount: 88,
-                image: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=500&auto=format&fit=crop&q=80",
+                images: [
+                    "https://images.unsplash.com/photo-1627123424574-724758594e93?w=500&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&auto=format&fit=crop&q=80"
+                ],
                 description: "১০০% খাঁটি চামড়ার গোল্ডেন লোগো ওয়ালেট। আরএফআইডি সিকিউরিটি প্রটেকশন সহ।"
             },
             {
@@ -472,31 +485,43 @@
                 category: "bags",
                 price: 5200,
                 oldPrice: 6200,
+                badge: "NEW",
                 sizes: "15.6 inch",
                 colors: "Brown",
                 stock: 8,
                 rating: 4.8,
                 reviewsCount: 19,
-                image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=500&auto=format&fit=crop&q=80",
+                images: [
+                    "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=500&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=500&auto=format&fit=crop&q=80"
+                ],
                 description: "১৫.৬ ইঞ্চি ল্যাপটপ এবং ডক্যুমেন্টস সহজে বহনের জন্য এক্সপোর্ট কোয়ালিটি লেদার ব্যাগ।"
-            },
-            {
-                id: 205,
-                name: "রোভিক্স মেটাল অটো-লক ফরমাল বেল্ট",
-                category: "belts",
-                price: 1150,
-                oldPrice: 1400,
-                sizes: "32, 34, 36, 38, 40",
-                colors: "Black",
-                stock: 30,
-                rating: 4.9,
-                reviewsCount: 54,
-                image: "https://images.unsplash.com/photo-1624222247344-550fb60583dc?w=500&auto=format&fit=crop&q=80",
-                description: "প্রিমিয়াম রয়্যাল মেটাল বাকল সহ টেকসই খাঁটি লেদার বেল্ট।"
             }
         ];
 
-        // Default Site Customization Settings
+        // Initial Watch & Shop Video Reels Data
+        const initialVideos = [
+            {
+                id: 1,
+                title: "Heriken Luxury Long Wallet",
+                videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-hands-holding-a-leather-wallet-41617-large.mp4",
+                thumbnail: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=500&auto=format&fit=crop&q=80"
+            },
+            {
+                id: 2,
+                title: "Antique Leather Wallet Showcase",
+                videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-man-holding-a-leather-wallet-41616-large.mp4",
+                thumbnail: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500&auto=format&fit=crop&q=80"
+            },
+            {
+                id: 3,
+                title: "Premium Footwear Unboxing",
+                videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-hands-opening-a-package-of-shoes-42998-large.mp4",
+                thumbnail: "https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?w=500&auto=format&fit=crop&q=80"
+            }
+        ];
+
+        // Default Site Customization Settings with multiple Hero Banners
         const initialSiteSettings = {
             adminPassword: "admin123",
             phone: "01620839283",
@@ -509,7 +534,11 @@
             topNotice: "আন্তর্জাতিক মানের ১০০% জেনুইন লেদার ও ফুটওয়্যার",
             heroTitle: "আপনার ব্যক্তিত্বে যোগ করুন আভিজাত্যের স্পর্শ",
             heroSub: "\"Walk with Class, Live with Confidence\" — প্রিমিয়াম জেনুইন লেদার শু, ওয়ালেট, বেল্ট ও ব্যাগের বিশাল কালেকশন নিয়ে আপনার পাশে রোভিক্স।",
-            heroImage: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&auto=format&fit=crop&q=80"
+            heroImages: [
+                "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&auto=format&fit=crop&q=80",
+                "https://images.unsplash.com/photo-1627123424574-724758594e93?w=600&auto=format&fit=crop&q=80",
+                "https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?w=600&auto=format&fit=crop&q=80"
+            ]
         };
 
         const initialOrders = [
@@ -536,16 +565,23 @@
             editingProduct: null,
             categories: JSON.parse(localStorage.getItem('rovix_categories')) || initialCategories,
             products: JSON.parse(localStorage.getItem('rovix_products')) || initialProducts,
+            videos: JSON.parse(localStorage.getItem('rovix_videos')) || initialVideos,
             siteSettings: JSON.parse(localStorage.getItem('rovix_settings')) || initialSiteSettings,
             cart: JSON.parse(localStorage.getItem('rovix_cart')) || [],
             orders: JSON.parse(localStorage.getItem('rovix_orders')) || initialOrders,
-            shippingFee: 70
+            shippingFee: 70,
+            activeHeroIndex: 0,
+            productImageIndexes: {} // tracks current image index for each product card slider
         };
+
+        // Auto slide interval tracker
+        let heroInterval = null;
 
         function saveState() {
             try {
                 localStorage.setItem('rovix_categories', JSON.stringify(state.categories));
                 localStorage.setItem('rovix_products', JSON.stringify(state.products));
+                localStorage.setItem('rovix_videos', JSON.stringify(state.videos));
                 localStorage.setItem('rovix_settings', JSON.stringify(state.siteSettings));
                 localStorage.setItem('rovix_cart', JSON.stringify(state.cart));
                 localStorage.setItem('rovix_orders', JSON.stringify(state.orders));
@@ -566,6 +602,7 @@
 
         function updateDynamicSiteInfo() {
             const s = state.siteSettings;
+            if(!document.getElementById('site-top-notice')) return;
 
             document.getElementById('site-top-notice').innerHTML = `<i class="fa-solid fa-crown text-gold-500 mr-1.5"></i> ${s.topNotice}`;
             document.getElementById('header-phone-display').innerText = s.phone;
@@ -577,13 +614,14 @@
             document.getElementById('footer-address-display').innerText = s.address;
             document.getElementById('footer-phone-display').innerText = s.phone;
             document.getElementById('footer-email-display').innerText = s.email;
-            if(document.getElementById('footer-map-link')) document.getElementById('footer-map-link').href = s.mapUrl || '#';
+            if(document.getElementById('footer-map-link')) document.getElementById('footer-map-link'].href = s.mapUrl || '#';
         }
 
         function renderCategoryNavs() {
             const dynamicNav = document.getElementById('dynamic-nav-categories');
             const mobileNav = document.getElementById('mobile-nav-categories');
             const footerList = document.getElementById('footer-categories-list');
+            if(!dynamicNav) return;
 
             let navHtml = `<button onclick="switchCategory('all')" class="hover:text-gold-400 transition ${state.selectedCategory === 'all' ? 'text-gold-400 font-bold border-b-2 border-gold-500 pb-1' : ''}">সকল পণ্য</button>`;
             let mobileHtml = `<button onclick="switchCategory('all'); toggleMobileMenu();" class="text-left py-1 text-gold-400">সকল পণ্য</button>`;
@@ -611,6 +649,76 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // Hero Slider Controls
+        function startHeroSlider() {
+            if (heroInterval) clearInterval(heroInterval);
+            heroInterval = setInterval(() => {
+                const images = state.siteSettings.heroImages || [state.siteSettings.heroImage];
+                if (images.length > 1) {
+                    state.activeHeroIndex = (state.activeHeroIndex + 1) % images.length;
+                    const imgEl = document.getElementById('hero-slider-img');
+                    const dotsContainer = document.getElementById('hero-dots');
+                    if (imgEl && dotsContainer) {
+                        imgEl.src = images[state.activeHeroIndex];
+                        updateHeroDots(images.length);
+                    }
+                }
+            }, 4000);
+        }
+
+        function setHeroSlide(index) {
+            state.activeHeroIndex = index;
+            const images = state.siteSettings.heroImages || [state.siteSettings.heroImage];
+            const imgEl = document.getElementById('hero-slider-img');
+            if (imgEl) imgEl.src = images[index];
+            updateHeroDots(images.length);
+            startHeroSlider(); // reset timer
+        }
+
+        function updateHeroDots(total) {
+            const dotsContainer = document.getElementById('hero-dots');
+            if (!dotsContainer) return;
+            let dotsHtml = '';
+            for (let i = 0; i < total; i++) {
+                dotsHtml += `<button onclick="setHeroSlide(${i})" class="w-3 h-3 rounded-full transition ${state.activeHeroIndex === i ? 'bg-gold-500 w-6' : 'bg-stone-500/60 hover:bg-stone-400'}"></button>`;
+            }
+            dotsContainer.innerHTML = dotsHtml;
+        }
+
+        // Product Card Image Slider Control
+        function nextProductImage(productId, totalImages, event) {
+            event.stopPropagation();
+            if (!state.productImageIndexes[productId]) state.productImageIndexes[productId] = 0;
+            state.productImageIndexes[productId] = (state.productImageIndexes[productId] + 1) % totalImages;
+            updateProductCardImage(productId);
+        }
+
+        function prevProductImage(productId, totalImages, event) {
+            event.stopPropagation();
+            if (!state.productImageIndexes[productId]) state.productImageIndexes[productId] = 0;
+            state.productImageIndexes[productId] = (state.productImageIndexes[productId] - 1 + totalImages) % totalImages;
+            updateProductCardImage(productId);
+        }
+
+        function updateProductCardImage(productId) {
+            const imgContainer = document.getElementById(`prod-img-${productId}`);
+            const dotsContainer = document.getElementById(`prod-dots-${productId}`);
+            const prod = state.products.find(p => p.id === productId);
+            if (!prod) return;
+
+            const images = prod.images && prod.images.length > 0 ? prod.images : [prod.image];
+            const currentIndex = state.productImageIndexes[productId] || 0;
+
+            if (imgContainer) imgContainer.src = images[currentIndex];
+            if (dotsContainer && images.length > 1) {
+                let dotsHtml = '';
+                for (let i = 0; i < images.length; i++) {
+                    dotsHtml += `<span class="h-1 rounded-full transition ${currentIndex === i ? 'bg-gold-500 w-3' : 'bg-white/50 w-1.5'}"></span>`;
+                }
+                dotsContainer.innerHTML = dotsHtml;
+            }
+        }
+
         function renderStorefront() {
             updateDynamicSiteInfo();
             const main = document.getElementById('main-container');
@@ -622,10 +730,13 @@
 
             let html = '';
 
-            // Hero section on 'all'
+            // Hero section on 'all' with Image Slider (Image 1 / 5208.jpg style)
             if (state.selectedCategory === 'all') {
+                const heroImgs = state.siteSettings.heroImages && state.siteSettings.heroImages.length > 0 ? state.siteSettings.heroImages : [state.siteSettings.heroImage];
+                if (state.activeHeroIndex >= heroImgs.length) state.activeHeroIndex = 0;
+
                 html += `
-                <!-- Luxury Hero -->
+                <!-- Luxury Hero Slider -->
                 <section class="relative bg-gradient-to-b from-matte-900 via-matte-800 to-matte-900 border-b border-gold-500/20 py-12 md:py-20 overflow-hidden">
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                         <div class="space-y-6 text-center md:text-left">
@@ -648,15 +759,21 @@
                             </div>
                         </div>
 
-                        <!-- Brand Shoe & Crown Banner Feature -->
-                        <div class="relative flex justify-center">
-                            <div class="w-80 sm:w-96 h-80 sm:h-96 rounded-3xl bg-matte-800 border-2 border-gold-500/40 p-3 shadow-2xl relative group">
-                                <img src="${state.siteSettings.heroImage}" loading="lazy" class="w-full h-full object-cover rounded-2xl">
+                        <!-- Hero Multiple Image Slider Container (Image 5208.jpg style with indicator dots) -->
+                        <div class="relative flex flex-col items-center justify-center">
+                            <div class="w-80 sm:w-96 h-80 sm:h-96 rounded-3xl bg-matte-800 border-2 border-gold-500/40 p-3 shadow-2xl relative group overflow-hidden">
+                                <img id="hero-slider-img" src="${heroImgs[state.activeHeroIndex]}" loading="lazy" class="w-full h-full object-cover rounded-2xl transition duration-500">
+                                
                                 <div class="absolute bottom-6 left-6 right-6 bg-matte-900/90 backdrop-blur p-4 rounded-xl border border-gold-500/30">
                                     <span class="text-gold-400 font-serif font-bold text-xs uppercase block">হট সেলস অফার</span>
-                                    <h4 class="text-white font-bold text-sm">রোভিক্স রয়েল ফুটওয়্যার</h4>
+                                    <h4 class="text-white font-bold text-sm">রোভিক্স রয়েল ফুটওয়্যার ও লেদার গুডস</h4>
                                     <p class="text-gold-300 font-extrabold text-xs">প্রিমিয়াম জেনুইন লেদার</p>
                                 </div>
+                            </div>
+
+                            <!-- Slider Dots Indicator (as seen in 5208.jpg) -->
+                            <div id="hero-dots" class="flex items-center gap-2 mt-4">
+                                <!-- Rendered dynamically -->
                             </div>
                         </div>
                     </div>
@@ -677,9 +794,11 @@
                     </div>
                 </section>
                 `;
+                
+                startHeroSlider();
             }
 
-            // Products Grid (Mobile 2-Column Grid)
+            // Products Grid (Mobile 2-Column Grid with Multi-Image Slider support per card - 5209.jpg style)
             html += `
             <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
                 <div class="flex justify-between items-end mb-6 border-b border-stone-800 pb-4">
@@ -705,20 +824,38 @@
             } else {
                 filtered.forEach(p => {
                     const sizesArr = p.sizes ? p.sizes.split(',').map(s => s.trim()) : [];
+                    const pImages = p.images && p.images.length > 0 ? p.images : [p.image];
+                    const currentImgIdx = state.productImageIndexes[p.id] || 0;
+                    const badgeText = p.badge || (p.oldPrice ? 'BESTSELLER' : 'POPULAR');
 
                     html += `
                     <div class="bg-matte-800 rounded-xl sm:rounded-2xl border border-gold-500/20 overflow-hidden shadow-xl hover:border-gold-500/50 transition duration-300 flex flex-col justify-between group">
                         <div>
+                            <!-- Product Image Slider Box (Multiple images sliding one after another as requested) -->
                             <div class="relative aspect-square overflow-hidden bg-matte-900">
-                                <img src="${p.image}" alt="${p.name}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                                ${p.oldPrice ? `
-                                    <span class="absolute top-2 left-2 bg-red-600 text-white text-[9px] sm:text-[10px] font-extrabold px-1.5 sm:px-2 py-0.5 rounded uppercase">
-                                        অফার
-                                    </span>
-                                ` : ''}
+                                <img id="prod-img-${p.id}" src="${pImages[currentImgIdx]}" alt="${p.name}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                
+                                <!-- Badge (BESTSELLER / POPULAR like 5209.jpg) -->
+                                <span class="absolute top-2 left-2 bg-gradient-to-r from-blue-900 to-indigo-900 text-white text-[9px] sm:text-[10px] font-extrabold px-2 py-0.5 rounded shadow uppercase tracking-wider border border-blue-500/30">
+                                    ${badgeText}
+                                </span>
+
                                 <span class="absolute top-2 right-2 bg-matte-900/90 text-gold-400 text-[10px] sm:text-xs font-bold px-2 py-0.5 sm:py-1 rounded-full border border-gold-500/30">
                                     <i class="fa-solid fa-star text-gold-400 text-[9px]"></i> ${p.rating}
                                 </span>
+
+                                <!-- Multi-image navigation arrows if more than 1 image -->
+                                ${pImages.length > 1 ? `
+                                    <button onclick="prevProductImage(${p.id}, ${pImages.length}, event)" class="absolute left-1 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black text-white w-7 h-7 rounded-full flex items-center justify-center text-xs opacity-70 group-hover:opacity-100 transition">
+                                        <i class="fa-solid fa-chevron-left"></i>
+                                    </button>
+                                    <button onclick="nextProductImage(${p.id}, ${pImages.length}, event)" class="absolute right-1 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black text-white w-7 h-7 rounded-full flex items-center justify-center text-xs opacity-70 group-hover:opacity-100 transition">
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </button>
+                                    <div id="prod-dots-${p.id}" class="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-black/40 px-2 py-0.5 rounded-full backdrop-blur-sm">
+                                        ${pImages.map((_, i) => `<span class="h-1 rounded-full transition ${currentImgIdx === i ? 'bg-gold-500 w-3' : 'bg-white/50 w-1.5'}"></span>`).join('')}
+                                    </div>
+                                ` : ''}
                             </div>
 
                             <div class="p-3 sm:p-5 space-y-1.5">
@@ -765,6 +902,44 @@
             </section>
             `;
 
+            // Watch & Shop Video Section (Image 5211.jpg style - ببینুন, পছন্দ করুন, অর্ডার করুন)
+            html += `
+            <section class="bg-gradient-to-b from-matte-900 via-matte-800 to-matte-900 py-14 border-t border-b border-gold-500/20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-10 space-y-2">
+                        <span class="text-gold-400 font-serif text-xs uppercase tracking-widest font-bold">Watch & Shop</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold font-serif text-white">দেখুন, পছন্দ করুন, অর্ডার করুন</h2>
+                        <div class="w-16 h-0.5 bg-gold-500 mx-auto"></div>
+                    </div>
+
+                    <!-- Horizontal Scrolling Reels Container -->
+                    <div class="flex overflow-x-auto gap-5 pb-6 custom-scrollbar snap-x">
+                        ${state.videos.map(v => `
+                            <div class="min-w-[240px] sm:min-w-[280px] bg-matte-900 rounded-2xl border border-gold-500/30 overflow-hidden shadow-2xl snap-center flex flex-col justify-between group relative">
+                                <div class="relative aspect-[9/16] bg-black overflow-hidden">
+                                    <video src="${v.videoUrl}" poster="${v.thumbnail}" autoplay loop muted playsinline class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></video>
+                                    
+                                    <!-- Brand Watermark Top -->
+                                    <div class="absolute top-3 left-3 bg-matte-900/80 backdrop-blur px-2.5 py-1 rounded-full border border-gold-500/30 flex items-center gap-1.5">
+                                        <div class="w-4 h-4 rounded-full bg-gold-500 text-matte-900 font-bold text-[9px] flex items-center justify-center">R</div>
+                                        <span class="text-[10px] font-bold text-white tracking-wider">ROVIX</span>
+                                    </div>
+
+                                    <!-- Bottom Action Overlay -->
+                                    <div class="absolute bottom-4 left-4 right-4 bg-matte-900/90 backdrop-blur p-3 rounded-xl border border-gold-500/30 space-y-2">
+                                        <h4 class="text-white font-bold text-xs line-clamp-1">${v.title}</h4>
+                                        <button onclick="switchCategory('all')" class="w-full gold-gradient-bg text-matte-900 py-1.5 rounded-lg font-black text-[11px] uppercase tracking-wider flex items-center justify-center gap-1">
+                                            <span>দেখুন</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </section>
+            `;
+
             main.innerHTML = html;
             renderCategoryNavs();
             updateCartBadge();
@@ -778,7 +953,7 @@
             if (existing) {
                 existing.quantity += 1;
             } else {
-                state.cart.push({ ...prod, quantity: 1 });
+                state.cart.push({ ...prod, quantity: 1, image: prod.images ? prod.images[0] : prod.image });
             }
 
             saveState();
@@ -787,12 +962,11 @@
             showToast(`"${prod.name}" কার্টে যুক্ত হয়েছে!`);
         }
 
-        // Direct Order Now functionality
         function quickOrder(productId) {
             const prod = state.products.find(p => p.id === productId);
             if (!prod) return;
 
-            state.cart = [{ ...prod, quantity: 1 }];
+            state.cart = [{ ...prod, quantity: 1, image: prod.images ? prod.images[0] : prod.image }];
             saveState();
             updateCartBadge();
             renderCartItems();
@@ -801,7 +975,8 @@
 
         function updateCartBadge() {
             const count = state.cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cart-badge').innerText = count;
+            const badge = document.getElementById('cart-badge');
+            if(badge) badge.innerText = count;
         }
 
         function toggleCartDrawer() {
@@ -828,6 +1003,7 @@
 
         function renderCartItems() {
             const container = document.getElementById('cart-items-container');
+            if(!container) return;
 
             if (state.cart.length === 0) {
                 container.innerHTML = `
@@ -925,7 +1101,6 @@
             document.getElementById('chk-grandtotal').innerText = `৳${grandTotal.toLocaleString('bn-BD')}`;
         }
 
-        // Handle Order Placement & Realtime DB Syncing Fix
         function handlePlaceOrder(e) {
             e.preventDefault();
 
@@ -956,7 +1131,6 @@
                 date: new Date().toISOString().split('T')[0]
             };
 
-            // Realtime Syncing to State & LocalStorage
             state.orders.unshift(newOrder);
             state.cart = [];
             saveState();
@@ -1006,43 +1180,52 @@
             }
         }
 
-        // Handle Image Upload with Automatic Canvas Compression for LocalStorage Compatibility
+        // Handle Image Upload with Compression
+        let tempUploadedImages = [];
         function handleImageUpload(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    const img = new Image();
-                    img.onload = function() {
-                        const canvas = document.createElement('canvas');
-                        const maxWidth = 600;
-                        const scaleSize = maxWidth / img.width;
-                        
-                        if (scaleSize < 1) {
-                            canvas.width = maxWidth;
-                            canvas.height = img.height * scaleSize;
-                        } else {
-                            canvas.width = img.width;
-                            canvas.height = img.height;
-                        }
+            const files = e.target.files;
+            if (files && files.length > 0) {
+                tempUploadedImages = [];
+                let loadedCount = 0;
 
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                Array.from(files).forEach((file, index) => {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const img = new Image();
+                        img.onload = function() {
+                            const canvas = document.createElement('canvas');
+                            const maxWidth = 600;
+                            const scaleSize = maxWidth / img.width;
+                            
+                            if (scaleSize < 1) {
+                                canvas.width = maxWidth;
+                                canvas.height = img.height * scaleSize;
+                            } else {
+                                canvas.width = img.width;
+                                canvas.height = img.height;
+                            }
 
-                        // Compress Image to JPEG format with 0.75 quality
-                        const compressedBase64 = canvas.toDataURL('image/jpeg', 0.75);
-                        document.getElementById('p-img').value = compressedBase64;
-                        
-                        const preview = document.getElementById('p-img-preview');
-                        if (preview) {
-                            preview.src = compressedBase64;
-                            preview.parentElement.classList.remove('hidden');
-                        }
-                        showToast("ছবি প্রসেস করা হয়েছে!");
+                            const ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                            const compressedBase64 = canvas.toDataURL('image/jpeg', 0.75);
+                            tempUploadedImages.push(compressedBase64);
+                            loadedCount++;
+
+                            if (loadedCount === files.length) {
+                                document.getElementById('p-imgs-data').value = JSON.stringify(tempUploadedImages);
+                                const previewBox = document.getElementById('p-img-preview-box');
+                                if (previewBox) {
+                                    previewBox.innerHTML = tempUploadedImages.map(src => `<img src="${src}" class="w-12 h-12 object-cover rounded-lg border border-gold-500/30">`).join('');
+                                    previewBox.classList.remove('hidden');
+                                }
+                                showToast(`${loadedCount} টি ছবি সফলভাবে প্রসেস করা হয়েছে!`);
+                            }
+                        };
+                        img.src = event.target.result;
                     };
-                    img.src = event.target.result;
-                };
-                reader.readAsDataURL(file);
+                    reader.readAsDataURL(file);
+                });
             }
         }
 
@@ -1077,7 +1260,7 @@
                             <i class="fa-solid fa-receipt"></i> কাস্টমার অর্ডার (${state.orders.length})
                         </button>
                         <button onclick="switchAdminTab('settings')" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-xs transition ${state.adminTab === 'settings' ? 'gold-gradient-bg text-matte-900 shadow-lg' : 'text-stone-400 hover:bg-matte-700 hover:text-white'}">
-                            <i class="fa-solid fa-gears"></i> সাইট ও সিকিউরিটি সেটিংস
+                            <i class="fa-solid fa-gears"></i> সাইট ও ব্যানার সেটিংস
                         </button>
                     </nav>
                 </aside>
@@ -1118,7 +1301,7 @@
                     <div class="flex justify-between items-center">
                         <div>
                             <h2 class="text-2xl font-serif font-bold text-white">${pEdit ? 'পণ্য এডিট করুন' : 'নতুন পণ্য এড করুন'}</h2>
-                            <p class="text-xs text-stone-400">সাইজ, দাম, অফার প্রাইস ও স্টক পরিবর্তন করতে পারবেন</p>
+                            <p class="text-xs text-stone-400">একাধিক ছবি, সাইজ, দাম ও ব্যাজ পরিবর্তন করতে পারবেন</p>
                         </div>
                         ${pEdit ? `
                             <button onclick="cancelProductEdit()" class="bg-stone-700 hover:bg-stone-600 text-white text-xs px-4 py-2 rounded-xl">
@@ -1153,24 +1336,21 @@
                                 <input type="number" id="p-old-price" value="${pEdit && pEdit.oldPrice ? pEdit.oldPrice : ''}" placeholder="3000" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-gold-400 uppercase mb-1">উপলব্ধ সাইজসমূহ (কমাদিয়ে)</label>
-                                <input type="text" id="p-sizes" value="${pEdit && pEdit.sizes ? pEdit.sizes : ''}" placeholder="যেমন: 39, 40, 41, 42" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
+                                <label class="block text-xs font-bold text-gold-400 uppercase mb-1">ব্যাজ (যেমন: BESTSELLER)</label>
+                                <input type="text" id="p-badge" value="${pEdit && pEdit.badge ? pEdit.badge : 'BESTSELLER'}" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-gold-400 uppercase mb-1">পণ্যের ছবি আপলোড করুন (গ্যালারি বা ডিভাইস থেকে) *</label>
-                                <input type="file" accept="image/*" id="p-img-file" onchange="handleImageUpload(event)" class="w-full px-3 py-2 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs file:mr-4 file:py-1.5 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-gold-500 file:text-matte-900 hover:file:bg-gold-400">
-                                <input type="hidden" id="p-img" value="${pEdit ? pEdit.image : ''}">
-                                <div class="${pEdit && pEdit.image ? '' : 'hidden'} mt-2 flex items-center gap-2">
-                                    <span class="text-[10px] text-stone-400">ছবি প্রিভিউ:</span>
-                                    <img id="p-img-preview" src="${pEdit && pEdit.image ? pEdit.image : ''}" class="w-12 h-12 object-cover rounded-lg border border-gold-500/30">
-                                </div>
+                                <label class="block text-xs font-bold text-gold-400 uppercase mb-1">একাধিক ছবি আপলোড করুন (একাধিক সিলেক্ট করা যাবে) *</label>
+                                <input type="file" accept="image/*" multiple id="p-img-files" onchange="handleImageUpload(event)" class="w-full px-3 py-2 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs file:mr-4 file:py-1.5 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-gold-500 file:text-matte-900 hover:file:bg-gold-400">
+                                <input type="hidden" id="p-imgs-data" value="">
+                                <div id="p-img-preview-box" class="hidden mt-2 flex items-center gap-2 flex-wrap"></div>
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-gold-400 uppercase mb-1">রং / কালার (ঐচ্ছিক)</label>
-                                <input type="text" id="p-colors" value="${pEdit && pEdit.colors ? pEdit.colors : ''}" placeholder="যেমন: Black, Brown" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
+                                <label class="block text-xs font-bold text-gold-400 uppercase mb-1">উপলব্ধ সাইজসমূহ (কমা দিয়ে)</label>
+                                <input type="text" id="p-sizes" value="${pEdit && pEdit.sizes ? pEdit.sizes : ''}" placeholder="যেমন: 39, 40, 41, 42" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
                             </div>
                         </div>
 
@@ -1200,18 +1380,14 @@
                             <tbody class="divide-y divide-stone-800">
                                 ${state.products.map(p => `
                                     <tr>
-                                        <td class="p-3"><img src="${p.image}" loading="lazy" class="w-10 h-10 object-cover rounded"></td>
+                                        <td class="p-3"><img src="${p.images ? p.images[0] : p.image}" loading="lazy" class="w-10 h-10 object-cover rounded"></td>
                                         <td class="p-3 font-bold text-white">${p.name}</td>
                                         <td class="p-3 text-gold-400 font-semibold">${state.categories.find(c => c.id === p.category)?.name || p.category}</td>
                                         <td class="p-3 font-bold text-white">৳${p.price}${p.oldPrice ? `<span class="line-through text-stone-500 text-[10px]">৳${p.oldPrice}</span>` : ''}</td>
                                         <td class="p-3 font-mono">${p.sizes || 'N/A'}</td>
                                         <td class="p-3 space-x-2">
-                                            <button onclick="editProduct(${p.id})" class="bg-amber-900/40 hover:bg-amber-800 text-amber-200 px-3 py-1.5 rounded-lg text-xs font-bold">
-                                                এডিট
-                                            </button>
-                                            <button onclick="deleteProduct(${p.id})" class="bg-red-900/40 hover:bg-red-800 text-red-200 px-3 py-1.5 rounded-lg text-xs font-bold">
-                                                ডিলেট
-                                            </button>
+                                            <button onclick="editProduct(${p.id})" class="bg-amber-900/40 hover:bg-amber-800 text-amber-200 px-3 py-1.5 rounded-lg text-xs font-bold">এডিট</button>
+                                            <button onclick="deleteProduct(${p.id})" class="bg-red-900/40 hover:bg-red-800 text-red-200 px-3 py-1.5 rounded-lg text-xs font-bold">ডিলেট</button>
                                         </td>
                                     </tr>
                                 `).join('')}
@@ -1223,17 +1399,15 @@
             } else if (state.adminTab === 'categories') {
                 html += `
                 <div class="space-y-8">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <h2 class="text-2xl font-serif font-bold text-white">ক্যাটাগরি ম্যানেজমেন্ট</h2>
-                            <p class="text-xs text-stone-400">নতুন ক্যাটাগরি এড করুন অথবা এডিট/ডিলেট করুন</p>
-                        </div>
+                    <div>
+                        <h2 class="text-2xl font-serif font-bold text-white">ক্যাটাগরি ম্যানেজমেন্ট</h2>
+                        <p class="text-xs text-stone-400">নতুন ক্যাটাগরি এড করুন অথবা ডিলেট করুন</p>
                     </div>
 
                     <form onsubmit="handleAddCategory(event)" class="bg-matte-800 p-6 rounded-2xl border border-gold-500/20 grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div>
                             <label class="block text-xs font-bold text-gold-400 uppercase mb-1">ক্যাটাগরি আইডি (English) *</label>
-                            <input type="text" required id="cat-id-input" placeholder="যেমন: jackets, shoes, belts" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
+                            <input type="text" required id="cat-id-input" placeholder="যেমন: jackets" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-gold-400 uppercase mb-1">ক্যাটাগরির নাম (বাংলা) *</label>
@@ -1261,9 +1435,7 @@
                                         <td class="p-4 font-mono text-gold-400">${c.id}</td>
                                         <td class="p-4 font-bold text-white">${c.name}</td>
                                         <td class="p-4">
-                                            <button onclick="deleteCategory('${c.id}')" class="bg-red-900/40 hover:bg-red-800 text-red-200 px-3 py-1.5 rounded-lg text-xs font-bold">
-                                                ডিলেট
-                                            </button>
+                                            <button onclick="deleteCategory('${c.id}')" class="bg-red-900/40 hover:bg-red-800 text-red-200 px-3 py-1.5 rounded-lg text-xs font-bold">ডিলেট</button>
                                         </td>
                                     </tr>
                                 `).join('')}
@@ -1275,7 +1447,7 @@
             } else if (state.adminTab === 'orders') {
                 html += `
                 <div class="space-y-6">
-                    <h2 class="text-2xl font-serif font-bold text-white">কাস্টমার অর্ডারসমূহ (রিয়েল-টাইম ডেটাবেজ)</h2>
+                    <h2 class="text-2xl font-serif font-bold text-white">কাস্টমার অর্ডারসমূহ</h2>
                     <div class="bg-matte-800 rounded-2xl border border-gold-500/20 overflow-x-auto">
                         <table class="w-full text-left text-xs text-stone-300">
                             <thead class="bg-matte-900 text-stone-400 uppercase font-bold border-b border-stone-800">
@@ -1325,90 +1497,29 @@
                 html += `
                 <div class="space-y-6">
                     <div>
-                        <h2 class="text-2xl font-serif font-bold text-white">ওয়েবসাইট ও সিকিউরিটি সেটিংস</h2>
-                        <p class="text-xs text-stone-400">ফোন নম্বর, ঠিকানা, ম্যাপ লিংক ও পাসওয়ার্ড ব্যাকএন্ড থেকে ম্যানেজ করুন</p>
+                        <h2 class="text-2xl font-serif font-bold text-white">ওয়েবসাইট ও হিরো ব্যানার স্লাইডার সেটিংস</h2>
+                        <p class="text-xs text-stone-400">একাধিক হিরো ব্যানার ইমেজ লিংক কমা দিয়ে এখানে যুক্ত করতে পারেন</p>
                     </div>
 
                     <form onsubmit="handleSaveSiteSettings(event)" class="bg-matte-800 p-6 rounded-2xl border border-gold-500/20 space-y-6">
-                        
-                        <!-- Security Password Settings -->
                         <div class="border-b border-stone-800 pb-6 space-y-4">
-                            <h3 class="text-base font-bold text-gold-400 font-serif flex items-center gap-2">
-                                <i class="fa-solid fa-key"></i> এডমিন সিকিউরিটি পাসওয়ার্ড
-                            </h3>
-                            <div class="max-w-md">
-                                <label class="block text-xs font-bold text-stone-300 uppercase mb-1">নতুন এডমিন পাসওয়ার্ড *</label>
-                                <input type="text" required id="set-admin-pass" value="${s.adminPassword}" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs font-mono">
-                            </div>
-                        </div>
-
-                        <!-- Social, Contact & Outlet Settings -->
-                        <div class="border-b border-stone-800 pb-6 space-y-4">
-                            <h3 class="text-base font-bold text-gold-400 font-serif flex items-center gap-2">
-                                <i class="fa-solid fa-address-book"></i> কন্টাক্ট লিঙ্ক ও আউটলেট লোকেশন
-                            </h3>
+                            <h3 class="text-base font-bold text-gold-400 font-serif">এডমিন পাসওয়ার্ড ও কন্টাক্ট</h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-xs font-bold text-stone-300 uppercase mb-1">ফেসবুক পেজ লিঙ্ক *</label>
-                                    <input type="url" required id="set-fb" value="${s.facebook}" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
+                                    <label class="block text-xs font-bold text-stone-300 uppercase mb-1">এডমিন পাসওয়ার্ড</label>
+                                    <input type="text" required id="set-admin-pass" value="${s.adminPassword}" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs font-mono">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-stone-300 uppercase mb-1">ইনস্টাগ্রাম লিঙ্ক *</label>
-                                    <input type="url" required id="set-ig" value="${s.instagram}" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div>
-                                    <label class="block text-xs font-bold text-stone-300 uppercase mb-1">ফোন নম্বর *</label>
+                                    <label class="block text-xs font-bold text-stone-300 uppercase mb-1">ফোন নম্বর</label>
                                     <input type="text" required id="set-phone" value="${s.phone}" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
                                 </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-stone-300 uppercase mb-1">হোয়াটসঅ্যাপ নম্বর (Country Code সহ) *</label>
-                                    <input type="text" required id="set-wa" value="${s.whatsapp}" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-stone-300 uppercase mb-1">ইমেইল ঠিকানা *</label>
-                                    <input type="email" required id="set-email" value="${s.email}" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-xs font-bold text-stone-300 uppercase mb-1">শোরুমের ঠিকানা *</label>
-                                    <input type="text" required id="set-address" value="${s.address}" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-stone-300 uppercase mb-1">গুগল ম্যাপ লিঙ্ক (URL)</label>
-                                    <input type="url" id="set-map-url" value="${s.mapUrl || ''}" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
-                                </div>
                             </div>
                         </div>
 
-                        <!-- Top Notice & Hero Banners -->
                         <div class="space-y-4">
-                            <h3 class="text-base font-bold text-gold-400 font-serif flex items-center gap-2">
-                                <i class="fa-solid fa-bullhorn"></i> ওয়েবসাইটের নোটিশ ও হিরো ব্যানার
-                            </h3>
+                            <h3 class="text-base font-bold text-gold-400 font-serif">হিরো ব্যানার স্লাইডার ইমেজ লিংকসমূহ (প্রতি লাইনে একটি অথবা কমা দিয়ে)</h3>
                             <div>
-                                <label class="block text-xs font-bold text-stone-300 uppercase mb-1">টপ হেডার অ্যানাউন্সমেন্ট নোটিশ *</label>
-                                <input type="text" required id="set-top-notice" value="${s.topNotice}" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
-                            </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-xs font-bold text-stone-300 uppercase mb-1">হিরো ব্যানার শিরোনাম *</label>
-                                    <input type="text" required id="set-hero-title" value="${s.heroTitle}" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-stone-300 uppercase mb-1">হিরো ব্যানার ছবি (Image Link) *</label>
-                                    <input type="url" required id="set-hero-img" value="${s.heroImage}" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
-                                </div>
-                            </div>
-
-                            <div>
-                                <label class="block text-xs font-bold text-stone-300 uppercase mb-1">হিরো সাব-টেক্সট *</label>
-                                <textarea required id="set-hero-sub" rows="2" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">${s.heroSub}</textarea>
+                                <textarea id="set-hero-images" rows="4" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs font-mono">${(s.heroImages || [s.heroImage]).join('\n')}</textarea>
                             </div>
                         </div>
 
@@ -1464,36 +1575,39 @@
             const price = parseFloat(document.getElementById('p-price').value);
             const oldPriceVal = document.getElementById('p-old-price').value;
             const oldPrice = oldPriceVal ? parseFloat(oldPriceVal) : null;
+            const badge = document.getElementById('p-badge').value;
             const sizes = document.getElementById('p-sizes').value;
-            const colors = document.getElementById('p-colors').value;
+            const description = document.getElementById('p-desc').value;
             
-            let image = document.getElementById('p-img').value;
-            
-            if (!image) {
+            let images = [];
+            const rawImgsData = document.getElementById('p-imgs-data').value;
+            if (rawImgsData) {
+                try { images = JSON.parse(rawImgsData); } catch(err) {}
+            }
+
+            if (images.length === 0) {
                 if (editId) {
-                    image = state.products.find(p => p.id == editId)?.image;
+                    const existing = state.products.find(p => p.id == editId);
+                    images = existing ? (existing.images || [existing.image]) : ["https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500&auto=format&fit=crop&q=80"];
                 } else {
-                    showToast("দয়া করে পণ্যের ছবি সিলেক্ট করুন!", "error");
-                    return;
+                    images = ["https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500&auto=format&fit=crop&q=80"];
                 }
             }
-            
-            const description = document.getElementById('p-desc').value;
 
             if (editId) {
                 const pIndex = state.products.findIndex(p => p.id == editId);
                 if (pIndex !== -1) {
                     state.products[pIndex] = {
                         ...state.products[pIndex],
-                        name, category, price, oldPrice, sizes, colors, image, description
+                        name, category, price, oldPrice, badge, sizes, images, image: images[0], description
                     };
                     showToast(`"${name}" প্রোডাক্ট সফলভাবে আপডেট হয়েছে!`);
                 }
             } else {
                 const newProd = {
                     id: Date.now(),
-                    name, category, price, oldPrice, sizes, colors,
-                    stock: 20, rating: 5.0, reviewsCount: 1, image, description
+                    name, category, price, oldPrice, badge, sizes, colors: "Black",
+                    stock: 20, rating: 5.0, reviewsCount: 1, images, image: images[0], description
                 };
                 state.products.unshift(newProd);
                 showToast(`"${name}" পণ্যটি সফলভাবে যোগ করা হয়েছে!`);
@@ -1533,28 +1647,19 @@
 
         function handleSaveSiteSettings(e) {
             e.preventDefault();
+            const rawHeroImgs = document.getElementById('set-hero-images').value;
+            const heroImgsArray = rawHeroImgs.split('\n').map(s => s.trim()).filter(s => s.length > 0);
 
-            state.siteSettings = {
-                adminPassword: document.getElementById('set-admin-pass').value.trim(),
-                facebook: document.getElementById('set-fb').value.trim(),
-                instagram: document.getElementById('set-ig').value.trim(),
-                phone: document.getElementById('set-phone').value.trim(),
-                whatsapp: document.getElementById('set-wa').value.trim(),
-                email: document.getElementById('set-email').value.trim(),
-                address: document.getElementById('set-address').value.trim(),
-                mapUrl: document.getElementById('set-map-url').value.trim(),
-                topNotice: document.getElementById('set-top-notice').value.trim(),
-                heroTitle: document.getElementById('set-hero-title').value.trim(),
-                heroImage: document.getElementById('set-hero-img').value.trim(),
-                heroSub: document.getElementById('set-hero-sub').value.trim()
-            };
+            state.siteSettings.adminPassword = document.getElementById('set-admin-pass').value.trim();
+            state.siteSettings.phone = document.getElementById('set-phone').value.trim();
+            state.siteSettings.heroImages = heroImgsArray.length > 0 ? heroImgsArray : state.siteSettings.heroImages;
+            state.siteSettings.heroImage = state.siteSettings.heroImages[0];
 
             saveState();
             updateDynamicSiteInfo();
-            showToast("ওয়েবসাইট সেটিংস ও সিকিউরিটি পাসওয়ার্ড সফলভাবে সংরক্ষিত হয়েছে!");
+            showToast("ওয়েবসাইট ও হিরো স্লাইডার সেটিংস সফলভাবে সংরক্ষিত হয়েছে!");
         }
 
-        // Keycombo shortcut (Ctrl + Shift + A) to trigger admin modal
         document.addEventListener('keydown', function(e) {
             if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
                 e.preventDefault();
@@ -1591,7 +1696,7 @@
             container.innerHTML = matched.map(p => `
                 <div class="flex items-center justify-between p-2 hover:bg-matte-900 rounded-lg cursor-pointer" onclick="closeSearchModal(); switchCategory('all');">
                     <div class="flex items-center gap-3">
-                        <img src="${p.image}" loading="lazy" class="w-10 h-10 rounded object-cover">
+                        <img src="${p.images ? p.images[0] : p.image}" loading="lazy" class="w-10 h-10 rounded object-cover">
                         <div>
                             <h5 class="font-bold text-white text-xs">${p.name}</h5>
                             <p class="text-gold-400 font-extrabold text-xs">৳${p.price.toLocaleString('bn-BD')}</p>
@@ -1601,33 +1706,14 @@
             `).join('');
         }
 
-        // Initialize App on Page Load
         window.onload = function() {
             renderStorefront();
         };
 
-        // Service Worker Registration for Instant Updates & Fast Loading
+        // Service Worker Registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then((registration) => {
-                        console.log('Service Worker Registered successfully:', registration.scope);
-                        
-                        registration.onupdatefound = () => {
-                            const installingWorker = registration.installing;
-                            installingWorker.onstatechange = () => {
-                                if (installingWorker.state === 'installed') {
-                                    if (navigator.serviceWorker.controller) {
-                                        console.log('New update available, reloading...');
-                                        window.location.reload();
-                                    }
-                                }
-                            };
-                        };
-                    })
-                    .catch((error) => {
-                        console.log('Service Worker Registration failed:', error);
-                    });
+                navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW error:', err));
             });
         }
     </script>
