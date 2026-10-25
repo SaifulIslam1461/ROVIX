@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ROVIX - Premium Leather & Footwear Brand</title>
     
-    <!-- Network Speed & Performance Optimizations -->
+    <!-- Fast Network Connection & Resource Hints -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="dns-prefetch" href="https://images.unsplash.com">
@@ -1605,6 +1605,31 @@
         window.onload = function() {
             renderStorefront();
         };
+
+        // Service Worker Registration for Instant Updates & Fast Loading
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('Service Worker Registered successfully:', registration.scope);
+                        
+                        registration.onupdatefound = () => {
+                            const installingWorker = registration.installing;
+                            installingWorker.onstatechange = () => {
+                                if (installingWorker.state === 'installed') {
+                                    if (navigator.serviceWorker.controller) {
+                                        console.log('New update available, reloading...');
+                                        window.location.reload();
+                                    }
+                                }
+                            };
+                        };
+                    })
+                    .catch((error) => {
+                        console.log('Service Worker Registration failed:', error);
+                    });
+            });
+        }
     </script>
 </body>
 </html>
