@@ -529,7 +529,7 @@
                 localStorage.setItem('rovix_orders', JSON.stringify(state.orders));
             } catch (e) {
                 console.error("Storage limit reached:", e);
-                showToast("মেমোরি ফুল হয়ে গেছে! ইমেজের সাইজ ছোট করুন।", "error");
+                showToast("মেমোরি ফুল হয়ে গেছে! ছোট সাইজের ভিডিও বা ছবি দিন।", "error");
             }
         }
 
@@ -1118,7 +1118,7 @@
                         const img = new Image();
                         img.onload = function() {
                             const canvas = document.createElement('canvas');
-                            const maxWidth = 600;
+                            const maxWidth = 500;
                             const scaleSize = maxWidth / img.width;
                             
                             if (scaleSize < 1) {
@@ -1132,7 +1132,7 @@
                             const ctx = canvas.getContext('2d');
                             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-                            const compressedBase64 = canvas.toDataURL('image/jpeg', 0.75);
+                            const compressedBase64 = canvas.toDataURL('image/jpeg', 0.65);
                             tempUploadedImages.push(compressedBase64);
                             loadedCount++;
 
@@ -1143,7 +1143,7 @@
                                     previewBox.innerHTML = tempUploadedImages.map(src => `<img src="${src}" class="w-12 h-12 object-cover rounded-lg border border-gold-500/30">`).join('');
                                     previewBox.classList.remove('hidden');
                                 }
-                                showToast(`${loadedCount} টি ছবি সফলভাবে প্রসেস করা হয়েছে!`);
+                                showToast(`${loadedCount} টি ছবি সফলভাবে অপ্টিমাইজ করা হয়েছে!`);
                             }
                         };
                         img.src = event.target.result;
@@ -1153,7 +1153,6 @@
             }
         }
 
-        // Direct File Upload for Hero Banner Slider
         let tempHeroImages = [];
         function handleHeroImagesUpload(e) {
             const files = e.target.files;
@@ -1166,7 +1165,7 @@
                         const img = new Image();
                         img.onload = function() {
                             const canvas = document.createElement('canvas');
-                            const maxWidth = 800;
+                            const maxWidth = 600;
                             const scaleSize = maxWidth / img.width;
                             if (scaleSize < 1) {
                                 canvas.width = maxWidth;
@@ -1177,7 +1176,7 @@
                             }
                             const ctx = canvas.getContext('2d');
                             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                            tempHeroImages.push(canvas.toDataURL('image/jpeg', 0.8));
+                            tempHeroImages.push(canvas.toDataURL('image/jpeg', 0.7));
                             loadedCount++;
                             if (loadedCount === files.length) {
                                 document.getElementById('set-hero-images-data').value = JSON.stringify(tempHeroImages);
@@ -1196,12 +1195,17 @@
             }
         }
 
-        // Direct Video File Upload for Watch & Shop
         let tempVideoFile = '';
         let tempVideoThumb = '';
         function handleVideoFileUpload(e) {
             const file = e.target.files[0];
             if (file) {
+                // Check if file size is too big (> 3MB) to prevent localStorage crash
+                if (file.size > 3 * 1024 * 1024) {
+                    showToast("ভিডিও সাইজ খুব বড়! দয়া করে ৩ মেগাবাইটের কম সাইজের ছোট ভিডিও বা রিলস দিন।", "error");
+                    e.target.value = "";
+                    return;
+                }
                 const reader = new FileReader();
                 reader.onload = function(event) {
                     tempVideoFile = event.target.result;
@@ -1217,14 +1221,23 @@
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(event) {
-                    tempVideoThumb = event.target.result;
-                    document.getElementById('v-thumb-data').value = tempVideoThumb;
-                    const prev = document.getElementById('v-thumb-preview');
-                    if(prev) {
-                        prev.src = tempVideoThumb;
-                        prev.classList.remove('hidden');
-                    }
-                    showToast("ভিডিও থাম্বনেইল সফলভাবে আপলোড হয়েছে!");
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = 300;
+                        canvas.height = 533; // 9:16 ratio
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        tempVideoThumb = canvas.toDataURL('image/jpeg', 0.6);
+                        document.getElementById('v-thumb-data').value = tempVideoThumb;
+                        const prev = document.getElementById('v-thumb-preview');
+                        if(prev) {
+                            prev.src = tempVideoThumb;
+                            prev.classList.remove('hidden');
+                        }
+                        showToast("ভিডিও থাম্বনেইল সফলভাবে অপ্টিমাইজ হয়েছে!");
+                    };
+                    img.src = event.target.result;
                 };
                 reader.readAsDataURL(file);
             }
@@ -1403,7 +1416,7 @@
                     <div class="flex justify-between items-center">
                         <div>
                             <h2 class="text-2xl font-serif font-bold text-white">${vEdit ? 'ভিডিও এডিট করুন' : 'ওয়াচ অ্যান্ড শপ ভিডিও যুক্ত করুন'}</h2>
-                            <p class="text-xs text-stone-400">প্রোফাইল বা গ্যালারি থেকে সরাসরি ভিডিও ফাইল ও থাম্বনেইল আপলোড করুন</p>
+                            <p class="text-xs text-stone-400">ছোট সাইজের (৩ মেগাবাইটের নিচে) ভিডিও ফাইল ও থাম্বনেইল আপলোড করুন</p>
                         </div>
                         ${vEdit ? `
                             <button onclick="cancelVideoEdit()" class="bg-stone-700 hover:bg-stone-600 text-white text-xs px-4 py-2 rounded-xl">নতুন ভিডিও মোডে ফিরে যান</button>
@@ -1420,7 +1433,7 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-gold-400 uppercase mb-1">ডিভাইস থেকে ভিডিও ফাইল আপলোড (MP4) *</label>
+                                <label class="block text-xs font-bold text-gold-400 uppercase mb-1">ভিডিও ফাইল আপলোড (MP4 - ছোট সাইজ) *</label>
                                 <input type="file" accept="video/mp4,video/*" id="v-file-input" onchange="handleVideoFileUpload(event)" class="w-full px-3 py-2 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs file:mr-4 file:py-1.5 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-gold-500 file:text-matte-900 hover:file:bg-gold-400">
                                 <input type="hidden" id="v-url-data" value="${vEdit ? vEdit.videoUrl : ''}">
                             </div>
@@ -1662,7 +1675,7 @@
             const thumbnail = document.getElementById('v-thumb-data').value || (state.editingVideo ? state.editingVideo.thumbnail : '');
 
             if (!videoUrl) {
-                showToast("অনুগ্রহ করে একটি ভিডিও ফাইল আপলোড করুন!", "error");
+                showToast("অনুগ্রহ করে একটি ছোট ভিডিও ফাইল আপলোড করুন!", "error");
                 return;
             }
 
@@ -1825,7 +1838,7 @@
                     <div class="flex items-center gap-3">
                         <img src="${p.images ? p.images[0] : p.image}" loading="lazy" class="w-10 h-10 rounded object-cover">
                         <div>
-                            <h5 class="font-bold text-white text-xs">${p.name}</h5>
+                            <th class="font-bold text-white text-xs">${p.name}</h5>
                             <p class="text-gold-400 font-extrabold text-xs">৳${p.price.toLocaleString('bn-BD')}</p>
                         </div>
                     </div>
