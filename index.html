@@ -5,17 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ROVIX - Premium Leather & Footwear Brand</title>
     
-    <!-- Fast Network Connection & Resource Hints -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="dns-prefetch" href="https://images.unsplash.com">
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts for Bengali & Luxury Serif Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script>
@@ -80,7 +76,6 @@
 </head>
 <body class="antialiased min-h-screen flex flex-col bg-matte-900 text-stone-200">
 
-    <!-- Top Announcement Bar -->
     <div class="bg-gradient-to-r from-matte-900 via-leather-900 to-matte-900 text-gold-300 text-xs sm:text-sm py-2 border-b border-gold-500/20 px-4">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <span id="site-top-notice" class="hidden sm:inline font-medium">
@@ -96,12 +91,9 @@
         </div>
     </div>
 
-    <!-- Main Customer Header -->
     <header class="bg-matte-800/95 backdrop-blur border-b border-gold-500/30 sticky top-0 z-40 shadow-2xl">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
-
-                <!-- ROVIX Logo Component -->
                 <div class="flex items-center gap-3 cursor-pointer" onclick="switchCategory('all')">
                     <div class="relative w-12 h-12 rounded-full border-2 border-gold-500 flex items-center justify-center bg-matte-900 shadow-lg shadow-gold-500/10 group">
                         <i class="fa-solid fa-crown text-gold-500 text-xs absolute -top-1"></i>
@@ -116,12 +108,8 @@
                     </div>
                 </div>
 
-                <!-- Navigation Links -->
-                <nav id="dynamic-nav-categories" class="hidden lg:flex items-center gap-6 font-medium text-stone-300 text-sm">
-                    <!-- Loaded via JS -->
-                </nav>
+                <nav id="dynamic-nav-categories" class="hidden lg:flex items-center gap-6 font-medium text-stone-300 text-sm"></nav>
 
-                <!-- Action Controls -->
                 <div class="flex items-center gap-3">
                     <button onclick="openSearchModal()" class="p-2.5 text-stone-300 hover:text-gold-400 transition rounded-full hover:bg-matte-700" title="খুঁজুন">
                         <i class="fa-solid fa-magnifying-glass text-lg"></i>
@@ -132,7 +120,6 @@
                         <span id="cart-badge" class="absolute -top-1 -right-1 gold-gradient-bg text-matte-900 text-xs font-black rounded-full h-5 w-5 flex items-center justify-center border-2 border-matte-800">0</span>
                     </button>
 
-                    <!-- Mobile Menu Button -->
                     <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-stone-300 hover:text-gold-400">
                         <i class="fa-solid fa-bars text-xl"></i>
                     </button>
@@ -140,23 +127,15 @@
             </div>
         </div>
 
-        <!-- Mobile Drawer Navigation -->
         <div id="mobile-menu" class="hidden lg:hidden bg-matte-800 border-b border-gold-500/20 px-4 py-4 space-y-2 text-sm font-semibold">
-            <div id="mobile-nav-categories" class="flex flex-col gap-2">
-                <!-- Mobile Categories Dynamic -->
-            </div>
+            <div id="mobile-nav-categories" class="flex flex-col gap-2"></div>
         </div>
     </header>
 
-    <!-- Dynamic Body Container -->
-    <main id="main-container" class="flex-grow">
-        <!-- Main Application View rendering here -->
-    </main>
+    <main id="main-container" class="flex-grow"></main>
 
-    <!-- Shopping Cart Drawer -->
     <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden hidden" role="dialog" aria-modal="true">
         <div onclick="toggleCartDrawer()" class="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity"></div>
-
         <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
             <div class="w-screen max-w-md bg-matte-800 border-l border-gold-500/30 shadow-2xl flex flex-col text-stone-200">
                 <div class="p-6 bg-matte-900 border-b border-gold-500/20 flex items-center justify-between">
@@ -167,11 +146,7 @@
                         <i class="fa-solid fa-xmark text-xl"></i>
                     </button>
                 </div>
-
-                <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar">
-                    <!-- Dynamic Cart Items -->
-                </div>
-
+                <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar"></div>
                 <div class="p-6 border-t border-gold-500/20 bg-matte-900 space-y-4">
                     <div class="space-y-2 text-sm text-stone-300">
                         <div class="flex justify-between">
@@ -187,7 +162,6 @@
                             <span id="cart-grandtotal">৳৭০</span>
                         </div>
                     </div>
-
                     <div class="grid grid-cols-1 gap-2">
                         <button onclick="openCheckoutModal()" class="w-full gold-gradient-bg hover:opacity-90 text-matte-900 py-3.5 rounded-xl font-black text-center transition shadow-lg shadow-gold-500/10 uppercase tracking-wider text-sm flex items-center justify-center gap-2">
                             <span>অর্ডার সম্পন্ন করুন</span> <i class="fa-solid fa-arrow-right"></i>
@@ -201,11 +175,9 @@
         </div>
     </div>
 
-    <!-- Checkout Modal -->
     <div id="checkout-modal" class="fixed inset-0 z-50 overflow-y-auto hidden">
         <div class="flex items-center justify-center min-h-screen px-4 py-8 text-center sm:block sm:p-0">
             <div onclick="closeCheckoutModal()" class="fixed inset-0 transition-opacity bg-black/80 backdrop-blur-md"></div>
-
             <div class="inline-block w-full max-w-xl my-8 overflow-hidden text-left align-middle transition-all transform bg-matte-800 border border-gold-500/40 rounded-2xl shadow-2xl text-stone-200">
                 <div class="bg-matte-900 p-6 border-b border-gold-500/30 flex justify-between items-center">
                     <div>
@@ -216,7 +188,6 @@
                         <i class="fa-solid fa-xmark text-xl"></i>
                     </button>
                 </div>
-
                 <form id="checkout-form" onsubmit="handlePlaceOrder(event)" class="p-6 space-y-4">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
@@ -228,7 +199,6 @@
                             <input type="tel" required id="cust-phone" placeholder="017xxxxxxxx" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white focus:border-gold-500 focus:outline-none text-sm">
                         </div>
                     </div>
-
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold text-gold-300 uppercase mb-1">শিপিং এলাকা *</label>
@@ -248,18 +218,15 @@
                             </select>
                         </div>
                     </div>
-
                     <div id="payment-instructions" class="hidden p-3 bg-matte-900 rounded-xl border border-gold-500/30 text-xs space-y-1">
                         <p class="text-amber-300 font-bold" id="pay-number-text">বিকাশ সেন্ড মানি নম্বর: 01620839283</p>
                         <p class="text-stone-400">টাকা পাঠানোর পর ট্রানজেকশন আইডি (TrxID) নিচে লিখুন:</p>
                         <input type="text" id="cust-trxid" placeholder="যেমন: 8N7A6D5E" class="w-full px-3 py-1.5 bg-matte-800 border border-stone-700 rounded-lg text-white mt-1">
                     </div>
-
                     <div>
                         <label class="block text-xs font-bold text-gold-300 uppercase mb-1">সম্পূর্ণ ঠিকানা *</label>
                         <textarea required id="cust-address" rows="2" placeholder="বাড়ি নম্বর, রোড নম্বর, এলাকা ও থানার নাম..." class="w-full px-4 py-2 bg-matte-900 border border-stone-700 rounded-xl text-white focus:border-gold-500 focus:outline-none text-sm"></textarea>
                     </div>
-
                     <div class="bg-matte-900 p-4 rounded-xl border border-stone-700 space-y-1.5 text-sm">
                         <div class="flex justify-between text-stone-400">
                             <span>পণ্যের মূল্য:</span>
@@ -274,25 +241,18 @@
                             <span id="chk-grandtotal">৳৭০</span>
                         </div>
                     </div>
-
                     <div class="pt-2 flex justify-end gap-3">
-                        <button type="button" onclick="closeCheckoutModal()" class="px-5 py-2.5 border border-stone-700 rounded-xl text-stone-400 font-semibold hover:bg-matte-700">
-                            বাতিল
-                        </button>
-                        <button type="submit" class="px-6 py-2.5 gold-gradient-bg text-matte-900 rounded-xl font-extrabold shadow-lg shadow-gold-500/20">
-                            অর্ডার নিশ্চিত করুন
-                        </button>
+                        <button type="button" onclick="closeCheckoutModal()" class="px-5 py-2.5 border border-stone-700 rounded-xl text-stone-400 font-semibold hover:bg-matte-700">বাতিল</button>
+                        <button type="submit" class="px-6 py-2.5 gold-gradient-bg text-matte-900 rounded-xl font-extrabold shadow-lg shadow-gold-500/20">অর্ডার নিশ্চিত করুন</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- Admin Login Modal -->
     <div id="admin-login-modal" class="fixed inset-0 z-50 overflow-y-auto hidden">
         <div class="flex items-center justify-center min-h-screen px-4 text-center">
             <div onclick="closeAdminLoginModal()" class="fixed inset-0 bg-black/80 backdrop-blur-md"></div>
-
             <div class="inline-block w-full max-w-md p-8 my-8 text-left transition-all transform bg-matte-800 border border-gold-500/50 rounded-2xl shadow-2xl relative z-10">
                 <div class="text-center mb-6">
                     <div class="w-14 h-14 rounded-full border-2 border-gold-500 bg-matte-900 flex items-center justify-center mx-auto mb-3 shadow-lg shadow-gold-500/20">
@@ -301,22 +261,17 @@
                     <h3 class="text-xl font-bold font-serif text-white">ROVIX সিকিউর এডমিন পোর্টাল</h3>
                     <p class="text-xs text-stone-400 mt-1">প্রবেশ করতে সিকিউরিটি পাসওয়ার্ড দিন</p>
                 </div>
-
                 <form onsubmit="handleAdminLogin(event)" class="space-y-4">
                     <div>
                         <label class="block text-xs font-bold text-gold-300 uppercase mb-1">সিকিউরিটি পাসওয়ার্ড *</label>
                         <input type="password" required id="admin-pass-input" placeholder="পাসওয়ার্ড টাইপ করুন..." class="w-full px-4 py-3 bg-matte-900 border border-stone-700 rounded-xl text-white focus:border-gold-500 focus:outline-none">
                     </div>
-
-                    <button type="submit" class="w-full gold-gradient-bg text-matte-900 font-extrabold py-3 rounded-xl shadow-lg transition">
-                        লগইন করুন
-                    </button>
+                    <button type="submit" class="w-full gold-gradient-bg text-matte-900 font-extrabold py-3 rounded-xl shadow-lg transition">লগইন করুন</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- Quick Search Overlay Modal -->
     <div id="search-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden p-4 flex justify-center items-start pt-20">
         <div class="bg-matte-800 border border-gold-500/30 w-full max-w-xl rounded-2xl shadow-2xl p-4 overflow-hidden">
             <div class="flex items-center border-b border-stone-700 pb-2 gap-3 px-2">
@@ -332,14 +287,11 @@
         </div>
     </div>
 
-    <!-- Toast Container -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- Store Footer -->
     <footer id="store-footer" class="bg-matte-900 text-stone-300 pt-16 pb-8 border-t border-gold-500/20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-
                 <div class="space-y-4">
                     <div class="flex items-center gap-2">
                         <div class="w-8 h-8 rounded-full border border-gold-500 bg-matte-800 flex items-center justify-center font-serif text-gold-400 font-bold">R</div>
@@ -363,9 +315,7 @@
 
                 <div>
                     <h4 class="text-white font-bold text-sm uppercase mb-4 border-b border-stone-800 pb-2">ক্যাটাগরি সমূহ</h4>
-                    <ul id="footer-categories-list" class="space-y-2 text-xs text-stone-400">
-                        <!-- Loaded dynamically -->
-                    </ul>
+                    <ul id="footer-categories-list" class="space-y-2 text-xs text-stone-400"></ul>
                 </div>
 
                 <div>
@@ -579,7 +529,7 @@
                 localStorage.setItem('rovix_orders', JSON.stringify(state.orders));
             } catch (e) {
                 console.error("Storage limit reached:", e);
-                showToast("মেমোরি ফুল হয়ে গেছে!", "error");
+                showToast("মেমোরি ফুল হয়ে গেছে! ইমেজের সাইজ ছোট করুন।", "error");
             }
         }
 
@@ -753,7 +703,6 @@
                             </div>
                         </div>
 
-                        <!-- First Image Style Hero Slider Container -->
                         <div class="relative flex flex-col items-center justify-center">
                             <div class="w-80 sm:w-96 h-80 sm:h-96 rounded-3xl bg-matte-800 border-2 border-gold-500/40 p-3 shadow-2xl relative group overflow-hidden">
                                 <img id="hero-slider-img" src="${heroImgs[state.activeHeroIndex]}" loading="lazy" class="w-full h-full object-cover rounded-2xl transition duration-500">
@@ -882,7 +831,6 @@
             </section>
             `;
 
-            // Second Image Style Watch & Shop Video Reels Section
             html += `
             <section class="bg-gradient-to-b from-matte-900 via-matte-800 to-matte-900 py-14 border-t border-b border-gold-500/20">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1205,6 +1153,83 @@
             }
         }
 
+        // Direct File Upload for Hero Banner Slider
+        let tempHeroImages = [];
+        function handleHeroImagesUpload(e) {
+            const files = e.target.files;
+            if (files && files.length > 0) {
+                tempHeroImages = [];
+                let loadedCount = 0;
+                Array.from(files).forEach((file) => {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const img = new Image();
+                        img.onload = function() {
+                            const canvas = document.createElement('canvas');
+                            const maxWidth = 800;
+                            const scaleSize = maxWidth / img.width;
+                            if (scaleSize < 1) {
+                                canvas.width = maxWidth;
+                                canvas.height = img.height * scaleSize;
+                            } else {
+                                canvas.width = img.width;
+                                canvas.height = img.height;
+                            }
+                            const ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                            tempHeroImages.push(canvas.toDataURL('image/jpeg', 0.8));
+                            loadedCount++;
+                            if (loadedCount === files.length) {
+                                document.getElementById('set-hero-images-data').value = JSON.stringify(tempHeroImages);
+                                const previewBox = document.getElementById('hero-img-preview-box');
+                                if (previewBox) {
+                                    previewBox.innerHTML = tempHeroImages.map(src => `<img src="${src}" class="w-14 h-14 object-cover rounded-lg border border-gold-500/30">`).join('');
+                                    previewBox.classList.remove('hidden');
+                                }
+                                showToast(`${loadedCount} টি ব্যানার ছবি সিলেক্ট হয়েছে!`);
+                            }
+                        };
+                        img.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+        }
+
+        // Direct Video File Upload for Watch & Shop
+        let tempVideoFile = '';
+        let tempVideoThumb = '';
+        function handleVideoFileUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    tempVideoFile = event.target.result;
+                    document.getElementById('v-url-data').value = tempVideoFile;
+                    showToast("ভিডিও ফাইল সফলভাবে আপলোড হয়েছে!");
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function handleVideoThumbUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    tempVideoThumb = event.target.result;
+                    document.getElementById('v-thumb-data').value = tempVideoThumb;
+                    const prev = document.getElementById('v-thumb-preview');
+                    if(prev) {
+                        prev.src = tempVideoThumb;
+                        prev.classList.remove('hidden');
+                    }
+                    showToast("ভিডিও থাম্বনেইল সফলভাবে আপলোড হয়েছে!");
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
         function renderAdminView() {
             const main = document.getElementById('main-container');
             if(!main) return;
@@ -1279,12 +1304,10 @@
                     <div class="flex justify-between items-center">
                         <div>
                             <h2 class="text-2xl font-serif font-bold text-white">${pEdit ? 'পণ্য এডিট করুন' : 'নতুন পণ্য এড করুন'}</h2>
-                            <p class="text-xs text-stone-400">একাধিক ছবি, সাইজ, দাম ও ব্যাজ পরিবর্তন করতে পারবেন</p>
+                            <p class="text-xs text-stone-400">ডিভাইস থেকে সরাসরি একাধিক ছবি আপলোড করুন</p>
                         </div>
                         ${pEdit ? `
-                            <button onclick="cancelProductEdit()" class="bg-stone-700 hover:bg-stone-600 text-white text-xs px-4 py-2 rounded-xl">
-                                নতুন পণ্য তৈরির মোডে ফিরে যান
-                            </button>
+                            <button onclick="cancelProductEdit()" class="bg-stone-700 hover:bg-stone-600 text-white text-xs px-4 py-2 rounded-xl">নতুন পণ্য তৈরির মোডে ফিরে যান</button>
                         ` : ''}
                     </div>
                     
@@ -1321,7 +1344,7 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-gold-400 uppercase mb-1">একাধিক ছবি আপলোড করুন *</label>
+                                <label class="block text-xs font-bold text-gold-400 uppercase mb-1">প্রোফাইল থেকে ছবি আপলোড করুন *</label>
                                 <input type="file" accept="image/*" multiple id="p-img-files" onchange="handleImageUpload(event)" class="w-full px-3 py-2 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs file:mr-4 file:py-1.5 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-gold-500 file:text-matte-900 hover:file:bg-gold-400">
                                 <input type="hidden" id="p-imgs-data" value="">
                                 <div id="p-img-preview-box" class="hidden mt-2 flex items-center gap-2 flex-wrap"></div>
@@ -1380,12 +1403,10 @@
                     <div class="flex justify-between items-center">
                         <div>
                             <h2 class="text-2xl font-serif font-bold text-white">${vEdit ? 'ভিডিও এডিট করুন' : 'ওয়াচ অ্যান্ড শপ ভিডিও যুক্ত করুন'}</h2>
-                            <p class="text-xs text-stone-400">নিচের রিলস বা শর্টস সেকশনের জন্য ভিডিও লিঙ্ক ও থাম্বনেইল যুক্ত করুন</p>
+                            <p class="text-xs text-stone-400">প্রোফাইল বা গ্যালারি থেকে সরাসরি ভিডিও ফাইল ও থাম্বনেইল আপলোড করুন</p>
                         </div>
                         ${vEdit ? `
-                            <button onclick="cancelVideoEdit()" class="bg-stone-700 hover:bg-stone-600 text-white text-xs px-4 py-2 rounded-xl">
-                                নতুন ভিডিও মোডে ফিরে যান
-                            </button>
+                            <button onclick="cancelVideoEdit()" class="bg-stone-700 hover:bg-stone-600 text-white text-xs px-4 py-2 rounded-xl">নতুন ভিডিও মোডে ফিরে যান</button>
                         ` : ''}
                     </div>
 
@@ -1399,12 +1420,15 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-gold-400 uppercase mb-1">ভিডিও লিংক (MP4 Direct URL) *</label>
-                                <input type="url" required id="v-url" value="${vEdit ? vEdit.videoUrl : ''}" placeholder="https://assets.mixkit.co/videos/..." class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
+                                <label class="block text-xs font-bold text-gold-400 uppercase mb-1">ডিভাইস থেকে ভিডিও ফাইল আপলোড (MP4) *</label>
+                                <input type="file" accept="video/mp4,video/*" id="v-file-input" onchange="handleVideoFileUpload(event)" class="w-full px-3 py-2 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs file:mr-4 file:py-1.5 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-gold-500 file:text-matte-900 hover:file:bg-gold-400">
+                                <input type="hidden" id="v-url-data" value="${vEdit ? vEdit.videoUrl : ''}">
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-gold-400 uppercase mb-1">থাম্বনেইল ইমেজ লিংক (Thumbnail Image URL) *</label>
-                                <input type="url" required id="v-thumb" value="${vEdit ? vEdit.thumbnail : ''}" placeholder="https://images.unsplash.com/..." class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs">
+                                <label class="block text-xs font-bold text-gold-400 uppercase mb-1">ভিডিও থাম্বনেইল ছবি আপলোড *</label>
+                                <input type="file" accept="image/*" id="v-thumb-input" onchange="handleVideoThumbUpload(event)" class="w-full px-3 py-2 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs file:mr-4 file:py-1.5 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-gold-500 file:text-matte-900 hover:file:bg-gold-400">
+                                <input type="hidden" id="v-thumb-data" value="${vEdit ? vEdit.thumbnail : ''}">
+                                <img id="v-thumb-preview" src="${vEdit ? vEdit.thumbnail : ''}" class="w-12 h-12 object-cover rounded mt-2 ${vEdit ? '' : 'hidden'}">
                             </div>
                         </div>
 
@@ -1419,7 +1443,6 @@
                                 <tr>
                                     <th class="p-3">থাম্বনেইল</th>
                                     <th class="p-3">টাইটেল</th>
-                                    <th class="p-3">ভিডিও লিংক</th>
                                     <th class="p-3">অ্যাকশন</th>
                                 </tr>
                             </thead>
@@ -1428,7 +1451,6 @@
                                     <tr>
                                         <td class="p-3"><img src="${v.thumbnail}" class="w-10 h-10 object-cover rounded"></td>
                                         <td class="p-3 font-bold text-white">${v.title}</td>
-                                        <td class="p-3 font-mono text-stone-400 truncate max-w-xs">${v.videoUrl}</td>
                                         <td class="p-3 space-x-2">
                                             <button onclick="editVideo(${v.id})" class="bg-amber-900/40 hover:bg-amber-800 text-amber-200 px-3 py-1.5 rounded-lg text-xs font-bold">এডিট</button>
                                             <button onclick="deleteVideo(${v.id})" class="bg-red-900/40 hover:bg-red-800 text-red-200 px-3 py-1.5 rounded-lg text-xs font-bold">ডিলেট</button>
@@ -1542,7 +1564,7 @@
                 <div class="space-y-6">
                     <div>
                         <h2 class="text-2xl font-serif font-bold text-white">ওয়েবসাইট ও হিরো ব্যানার স্লাইডার সেটিংস</h2>
-                        <p class="text-xs text-stone-400">একাধিক হিরো ব্যানার ইমেজ লিংক প্রতি লাইনে একটি করে দিন</p>
+                        <p class="text-xs text-stone-400">প্রোফাইল থেকে একাধিক ব্যানার ছবি সরাসরি সিলেক্ট করুন</p>
                     </div>
 
                     <form onsubmit="handleSaveSiteSettings(event)" class="bg-matte-800 p-6 rounded-2xl border border-gold-500/20 space-y-6">
@@ -1561,15 +1583,15 @@
                         </div>
 
                         <div class="space-y-4">
-                            <h3 class="text-base font-bold text-gold-400 font-serif">হিরো ব্যানার স্লাইডার ইমেজ লিংকসমূহ (প্রতি লাইনে একটি)</h3>
+                            <h3 class="text-base font-bold text-gold-400 font-serif">হিরো ব্যানার স্লাইডার ছবি আপলোড (একাধিক)</h3>
                             <div>
-                                <textarea id="set-hero-images" rows="4" class="w-full px-4 py-2.5 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs font-mono">${(s.heroImages || [s.heroImage]).join('\n')}</textarea>
+                                <input type="file" accept="image/*" multiple id="set-hero-file-input" onchange="handleHeroImagesUpload(event)" class="w-full px-3 py-2 bg-matte-900 border border-stone-700 rounded-xl text-white text-xs file:mr-4 file:py-1.5 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-gold-500 file:text-matte-900 hover:file:bg-gold-400">
+                                <input type="hidden" id="set-hero-images-data" value="">
+                                <div id="hero-img-preview-box" class="hidden mt-3 flex items-center gap-2 flex-wrap"></div>
                             </div>
                         </div>
 
-                        <button type="submit" class="gold-gradient-bg text-matte-900 font-extrabold px-8 py-3 rounded-xl text-xs shadow-lg">
-                            সেটিংস সেভ করুন
-                        </button>
+                        <button type="submit" class="gold-gradient-bg text-matte-900 font-extrabold px-8 py-3 rounded-xl text-xs shadow-lg">সেটিংস সেভ করুন</button>
                     </form>
                 </div>
                 `;
@@ -1636,8 +1658,13 @@
             e.preventDefault();
             const editId = document.getElementById('v-edit-id').value;
             const title = document.getElementById('v-title').value;
-            const videoUrl = document.getElementById('v-url').value;
-            const thumbnail = document.getElementById('v-thumb').value;
+            const videoUrl = document.getElementById('v-url-data').value || (state.editingVideo ? state.editingVideo.videoUrl : '');
+            const thumbnail = document.getElementById('v-thumb-data').value || (state.editingVideo ? state.editingVideo.thumbnail : '');
+
+            if (!videoUrl) {
+                showToast("অনুগ্রহ করে একটি ভিডিও ফাইল আপলোড করুন!", "error");
+                return;
+            }
 
             if (editId) {
                 const vIndex = state.videos.findIndex(v => v.id == editId);
@@ -1742,13 +1769,18 @@
 
         function handleSaveSiteSettings(e) {
             e.preventDefault();
-            const rawHeroImgs = document.getElementById('set-hero-images').value;
-            const heroImgsArray = rawHeroImgs.split('\n').map(s => s.trim()).filter(s => s.length > 0);
+            const rawHeroData = document.getElementById('set-hero-images-data').value;
+            let heroImgsArray = [];
+            if(rawHeroData) {
+                try { heroImgsArray = JSON.parse(rawHeroData); } catch(err){}
+            }
 
             state.siteSettings.adminPassword = document.getElementById('set-admin-pass').value.trim();
             state.siteSettings.phone = document.getElementById('set-phone').value.trim();
-            state.siteSettings.heroImages = heroImgsArray.length > 0 ? heroImgsArray : state.siteSettings.heroImages;
-            state.siteSettings.heroImage = state.siteSettings.heroImages[0];
+            if (heroImgsArray.length > 0) {
+                state.siteSettings.heroImages = heroImgsArray;
+                state.siteSettings.heroImage = heroImgsArray[0];
+            }
 
             saveState();
             updateDynamicSiteInfo();
